@@ -2,7 +2,7 @@
 from mongoengine.django.auth import User
 from mongoengine import Document, fields, CASCADE, EmbeddedDocument, PULL
 from mongoengine import signals
-# Create your models here.
+
 
 
 class Public_Profile(EmbeddedDocument):
