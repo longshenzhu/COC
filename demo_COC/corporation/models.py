@@ -48,4 +48,3 @@ class Corporation(Document):
     
     
     
-    

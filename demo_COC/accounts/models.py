@@ -114,4 +114,3 @@ class S_G_Card(Document):
 signals.post_save.connect(Event.event_post_save, sender=S_G_Card)
     
 
-        
