@@ -14,12 +14,12 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'',include('accounts.urls')),
-    #url(r'^accounts/',include('accounts.urls')),
-    #url(r'^people/', include('accounts.urls')),
-    url(r'^group/',include('group.urls')),
-    #url(r'^corporation/',include('corporation.urls')),
-    #url(r'^find/'),
+    url(r'', include('accounts.urls')),
+    # url(r'^accounts/',include('accounts.urls')),
+    # url(r'^people/', include('accounts.urls')),
+    url(r'^group/', include('group.urls')),
+    # url(r'^corporation/',include('corporation.urls')),
+    # url(r'^find/'),
     
 
 )

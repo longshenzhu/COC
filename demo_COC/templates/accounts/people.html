@@ -25,7 +25,7 @@
 					{%ifnotequal student current_user%}
 					&nbsp;
 					{%endifnotequal%}
-					{%if student in current_user.get_sscard.watched_students%}
+					{%if student in current_user.get_sscard.get.watched_students%}
 
 					<button class="btn btn-block btn-danger" id="cancle_watch">
 						取消关注
@@ -50,9 +50,9 @@
 		<p align="center">
 			-----关注的人------
 		</p>
-		{%if student.get_sscard.watched_students%}
+		{%if student.get_sscard.get.watched_students%}
 		<ul class="thumbnails">
-			{%for wstudent in student.get_sscard.watched_students%}
+			{%for wstudent in student.get_sscard.get.watched_students%}
 			<li class="span1">
 				<a class="thumbnail" href="/people/{{wstudent.url_number}}/"> <img src="{{wstudent.public_profile.face}}"> </a>
 			</li>

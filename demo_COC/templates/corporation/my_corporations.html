@@ -1,0 +1,52 @@
+{%extends 'corporation/corporaiton_base.html'%}
+{%block leftspan6%}
+<h3>我的社团话题</small></h3>
+<hr>
+<ul class="nav nav-tabs" id="myTab">
+	{%block tabnav%}
+	<li class="active">
+		<a href="../my_corporation_news">最新话题</a>
+	</li>
+	<li>
+		<a href="../my_corporation_creat">我发起的话题</a>
+	</li>
+	<li>
+		<a href="../my_corporation_reply">我回应的话题</a>
+	</li>
+	{%endblock%}
+</ul>
+<div class="tab-content">
+	<div class="tab-pane active" id="home">
+		{%if current_user.corporationtopics%}
+		{%block table%}
+		{%endblock%}
+		{%else%}
+		<h2>无</h2>
+		{%endif%}
+	</div>
+</div>
+{%endblock%}
+{%block rightspan3%}
+<div class="row">
+
+	<div class="span3">
+		<p align="center">
+			-----加入的社团------
+		</p>
+		{%if current_user.get_sccard%}
+		<ul class="thumbnails">
+			{%for sccard in current_user.get_sccard%}
+			<li class="span1">
+				<a class="thumbnail" href="/group/{{sccard.corporation.url_number}}/"> <img src="{{sccard.corporation.logo}}"> </a>
+			</li>
+			{%endfor%}
+		</ul>
+		{%else%}
+		<p>
+			您还没有加入社团
+		</p>
+		{%endif%}
+		
+	</div>
+</div>
+{%endblock%}

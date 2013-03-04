@@ -15,18 +15,17 @@
 {%endblock%}
 {%block content%}
 {%if student.get_sgcard%}
-<div class="media">
+<ul class="thumbnails">
 	{%for sgcard in student.get_sgcard%}
-	<div class="span6 media">
-		<hr>
+	<li>
 		<a class="pull-left span1" href="/group/{{sgcard.group.url_number}}/"> <img class="media-object" src="{{sgcard.group.logo}}"> </a>
 		<div class="media-body">
 			<h4 class="media-heading">{{sgcard.group.name}}</h4>
-			创建于{{sgcard.group.birthday}}
+			<p>{{sgcard.group.get_user_list.count}}个成员</p>
 		</div>
-	</div>
+	</li>
 	{%endfor%}
-</div>
+</ul>
 {%else%}
 <h2>他还没有加入小组</h2>
 {%endif%}

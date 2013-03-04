@@ -3,19 +3,21 @@
 <h3>我的小组话题</small></h3>
 <hr>
 <ul class="nav nav-tabs" id="myTab">
+	{%block tabnav%}
 	<li class="active">
-		<a href="#home">最新话题</a>
+		<a href="../my_groups_news">最新话题</a>
 	</li>
 	<li>
-		<a href="#profile">我发起的话题</a>
+		<a href="../my_groups_creat">我发起的话题</a>
 	</li>
 	<li>
-		<a href="#messages">我回应的话题</a>
+		<a href="../my_groups_reply">我回应的话题</a>
 	</li>
+	{%endblock%}
 </ul>
 <div class="tab-content">
 	<div class="tab-pane active" id="home">
-		{%if student.grouptopics%}
+		{%if current_user.grouptopics%}
 		{%block table%}
 		{%endblock%}
 		{%else%}
@@ -28,26 +30,45 @@
 <div class="row">
 
 	<div class="span3">
-		<hr>
 		<p align="center">
-			-----加入的小队------
+			-----管理的小组-----
 		</p>
-
+		{%if current_user.get_admin_group%}
 		<ul class="thumbnails">
+			{%for sgcard in current_user.get_admin_group%}
 			<li class="span1">
-				<a class="thumbnail" href=""> <img src="static/img/end of earth.jpg"> </a>
+				<a class="thumbnail" href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}"> </a>
 			</li>
+			{%endfor%}
 		</ul>
-		<hr>
-		<p align="center">
-			-----加入的社团------
+		{%else%}
+		<p>
+			没有需要您管理的小组
 		</p>
-
-		<ul class="thumbnails">
-			<li class="span1">
-				<a class="thumbnail" href=""> <img src="static/img/end of earth.jpg"> </a>
-			</li>
-		</ul>
+		{%endif%}
+		
 	</div>
+	<div class="span3">
+		<p align="center">
+			-----参加的小组------
+		</p>
+		{%if current_user.get_in_group%}
+		<ul class="thumbnails">
+			{%for sgcard in current_user.get_in_group%}
+			<li class="span1">
+				<a class="thumbnail" href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}"> </a>
+			</li>
+			{%endfor%}
+		</ul>
+		{%else%}
+		<p>
+			您还没有加入小组
+		</p>
+		{%endif%}
+		
+	</div>
+	
 </div>
+{%endblock%}
+{%block otherscript%}
 {%endblock%}

@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding: utf-8
 from django.test.simple import DjangoTestSuiteRunner
 from nose.plugins.skip import SkipTest
  
@@ -30,7 +30,7 @@ class MongoTestRunner(DjangoTestSuiteRunner):
             http://nubits.org/post/django-mongodb-mongoengine-testing-with-custom-test-runner/
     """
  
-    mongodb_name = 'test_%s' % (settings.MONGO_DATABASE_NAME, )
+    mongodb_name = 'test_%s' % (settings.MONGO_DATABASE_NAME,)
  
     def setup_databases(self, **kwargs):
         from mongoengine.connection import connect, disconnect

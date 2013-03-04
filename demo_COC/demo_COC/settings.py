@@ -1,9 +1,17 @@
-#-*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-
 # Django settings for demo_COC project.
 import os
-PROJECT_PATH = os.path.realpath(os.path.dirname(os.path.realpath(__file__))+'/../').replace('\\', '/')
+PROJECT_PATH = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + '/../').replace('\\', '/')
 from mongoengine import connect
-connect('Demo_COC')
+MONGO_DATABASE_NAME = 'Demo_COC'
+MONGO_HOST = 'localhost'
+MONGO_PORT = 27017
+connect(MONGO_DATABASE_NAME,
+        host=MONGO_HOST,
+        port=MONGO_PORT)
+
+TEST_RUNNER = 'demo_COC.testrunners.MongoTestRunner'
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 SESSION_ENGINE = 'mongoengine.django.sessions'
@@ -16,15 +24,14 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
 DATABASES = {
     'default': {
-        'ENGINE': '', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': '',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '',  # Or path to database file if using sqlite3.
+        'USER': '',  # Not used with sqlite3.
+        'PASSWORD': '',  # Not used with sqlite3.
+        'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',  # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -53,7 +60,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = PROJECT_PATH+'/media/'
+MEDIA_ROOT = PROJECT_PATH + '/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -68,7 +75,7 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://127.0.0.1:8020/demo_COC/static/'#用火狐打开CSS文件就能知道它的地址
+STATIC_URL = 'http://127.0.0.1:8020/demo_COC/static/'  # 用火狐打�?SS文件就能知道它的地址
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -114,7 +121,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    PROJECT_PATH+'/templates/',
+    PROJECT_PATH + '/templates/',
 
 )
 

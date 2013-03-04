@@ -11,23 +11,138 @@
 	<a href="/corporation/">社团</a>
 </li>
 <li>
-	<a href="/group/">小组</a>
+	<a href="/group/my_groups_news/">小组</a>
 </li>
 <li>
 	<a href="/find/">发现</a>
 </li>
 {%endblock%}
 {%block container%}
-<div class="span9 offset1 well">
+<div class="span11 well">
 	<div class="row">
-		<div class="span6">
+		<div class="span8">
 			{%block leftspan6%}
 			{%endblock%}
 		</div>
 		<div class="span3">
 			{%block rightspan3%}
+			<div class="row">
+				<div class="span3">
+					<div class="thumbnail">
+						<a href="/group/{{group.url_number}}/"><img src="{{group.logo}}"></a>
+						<div id="outer">
+							<div id="enter_button">
+								&nbsp;
+								{%if current_user in group.get_user_list%}
+
+								<button class="btn btn-block btn-danger" id="quit">
+									退出小组
+								</button>
+								{%else%}
+								<button class="btn btn-block btn-success" id="enter">
+									加入小组
+								</button>
+
+								{%endif%}
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="span3">
+					<hr>
+					<p align="center">
+						-----小组管理员-----
+					</p>
+					<div id="admin_list">
+						{%if group.get_admin_list%}
+						<ul class="thumbnails">
+							{%for user in group.get_admin_list%}
+							<li class="span1">
+								<a class="thumbnail" href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}"> </a>
+							</li>
+							{%endfor%}
+						</ul>
+						{%else%}
+						<p>
+							无
+						</p>
+						{%endif%}
+					</div>
+					<hr>
+					<p align="center">
+						-----小组成员-----
+					</p>
+					<div id="member_list">
+						{%if group.get_member_list%}
+						<ul class="thumbnails">
+							{%for user in group.get_member_list%}
+							<li class="span1">
+								<a class="thumbnail" href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}"> </a>
+							</li>
+							{%endfor%}
+						</ul>
+						{%else%}
+						<p>
+							无
+						</p>
+						{%endif%}
+					</div>
+				</div>
+			</div>
 			{%endblock%}
 		</div>
 	</div>
 </div>
+{%endblock%}
+{%block otherscript%}
+<script type="text/javascript" src="{{STATIC_URL}}js/csrf.js"></script>
+<script type="text/javascript">
+$().ready(function(){
+	$('#quit').live('click',function () {
+		$.post("{%url group.views.quitgroup group.url_number%}",
+		function () {
+			$('#outer').load(location.href+' #outer>*');
+			$('#topic_outer').load(location.href+' #topic_outer>*');
+			$('#admin_list').load(location.href+' #admin_list>*');
+			$('#member_list').load(location.href+' #member_list>*');
+			$('#reply').load(location.href+' #reply>*');
+			$('#ask_outer').load(location.href+' #ask_outer>*');
+			$('#admin_list').load(location.href+' #admin_list>*');
+			$('#inactive_topic').load(location.href+' #inactive_topic>*');
+		});
+	});
+	
+	$('#enter').live('click',function () {
+		$.post("{%url group.views.entergroup group.url_number%}",
+		function () {
+			$('#outer').load(location.href+' #outer>*');
+			$('#topic_outer').load(location.href+' #topic_outer>*');
+			$('#admin_list').load(location.href+' #admin_list>*');
+			$('#member_list').load(location.href+' #member_list>*');
+			$('#reply').load(location.href+' #reply>*');
+			$('#ask_outer').load(location.href+' #ask_outer>*');
+			$('#admin_list').load(location.href+' #admin_list>*');
+			$('#inactive_topic').load(location.href+' #inactive_topic>*');
+		});
+	});
+	
+	$('#ask_for_admin').live('click',function () {
+		$.post("{%url group.views.ask_for_admin group.url_number%}",
+		function () {
+			$('#outer').load(location.href+' #outer>*');
+			$('#topic_outer').load(location.href+' #topic_outer>*');
+			$('#admin_list').load(location.href+' #admin_list>*');
+			$('#member_list').load(location.href+' #member_list>*');
+			$('#reply').load(location.href+' #reply>*');
+			$('#ask_outer').load(location.href+' #ask_outer>*');
+			$('#admin_list').load(location.href+' #admin_list>*');
+			$('#inactive_topic').load(location.href+' #inactive_topic>*');
+		});
+	});
+});
+</script>
+					
+
 {%endblock%}

@@ -1,100 +1,125 @@
 {%extends "group/group_base.html"%}
 {%block leftspan6%}
 <h3>{{group.name}}<small>来自</small></h3>
-<hr>
+<div id="ask_outer">
+{%if current_user in group.get_member_list%}
+<div class="offset5">
+	<button class="btn btn-primary span2" id="ask_for_admin">
+		申请管理权
+	</button>
+</div>
+{%else%}
+	{%if current_user in group.get_admin_list%}
+	<div class="offset5">
+		<a class="btn btn-primary span2" href="manage_edit/">
+			小组管理
+		</a>
+	</div>
+	{%endif%}
+{%endif%}
+</div>
+<h3>&nbsp;</h3>
 <div class="well">
-	创建于{{group.birthday}}
+	创建于{{group.birthday|date:"Y-m-d H:i:s"}}
 </div>
 <hr>
+<div class="row">
 <div class="span2">
-<h4>最近小组话题</h4>
+	<h4>最近小组话题</h4>
 </div>
 
 <div id="topic_outer">
-{%if current_user in group.get_member_list%}
-<div class="offset3" id="topic_button">
-<button class="btn btn-success span2" data-toggle="modal" data-target="#myModal">发布话题</button>
+	{%if current_user in group.get_user_list%}
+	<div class="offset5" id="topic_button">
+		<button class="btn btn-success span2" data-toggle="modal" data-target="#myModal">
+			发布话题
+		</button>
+	</div>
+	{%endif%}
 </div>
-{%endif%}
 </div>
-
-<hr class="span5">
+<hr class="span7">
 {%if group.get_topic_list%}
 <table class="table table-hover">
 	<thead>
 		<tr>
 			<td>话题</td>
-			<td>阅</td>
+			<td>回应/阅</td>
 			<td>最后回应</td>
 			<td>作者</td>
 		</tr>
 	</thead>
-	
+
 	<tbody>
 		{%for topic in group.get_topic_list%}
 		<tr>
 			<td><a href="/group/{{group.url_number}}/topic/{{topic.url_number}}/">{{topic.title}}</a></td>
-			<td>{{topic.clicks}}</td>
-			<td>{{topic.update_time}}</td>
+			<td>{{topic.replys}}/{{topic.clicks}}</td>
+			<td>{{topic.update_time|date:"Y-m-d H:i:s"}}</td>
 			<td><a href="/people/{{topic.creator.user.url_number}}/">{{topic.creator.user.public_profile.realname}}</a></td>
 		</tr>
 		{%endfor%}
 	</tbody>
-	
 
 </table>
 {%else%}
-<div class="span2"><h1>没有话题</h1></div>
+<div class="span8">
+	<h1>没有话题</h1>
+</div>
 {%endif%}
 
-{%endblock%}
-
-{%block rightspan3%}
-<div class="row">
-	<div class="span3">
-		<div class="thumbnail">
-			<img src="{{group.logo}}">
-			<div id="outer">
-				<div id="enter_button">
-					&nbsp;
-					{%if current_user in group.get_member_list%}
-
-					<button class="btn btn-block btn-danger" id="quit">
-						退出小组
-					</button>
-					{%else%}
-						<button class="btn btn-block btn-success" id="enter">
-							加入小组
-						</button>
-	
-					{%endif%}
-				</div>
-				
+<div id="inactive_topic">
+{%if current_user in group.get_admin_list%}
+<hr class="span7">
+	<div class="row">
+		<div class="span2">
+			<h4>话题回收站</h4>
+		</div>
+		<div>
+			<div class="offset5">
+				<button class="btn btn-info">
+					全部恢复
+				</button>
+				<button class="btn btn-danger">
+					全部删除
+				</button>
 			</div>
 		</div>
 	</div>
+	<hr class="span7">
 
-	<div class="span3">
-		<hr>
-		<p align="center">
-			-----小组成员------
-		</p>
-		<div id="member_list">
-		{%if group.get_member_list%}
-		<ul class="thumbnails">
-			{%for user in group.get_member_list%}
-			<li class="span1">
-				<a class="thumbnail" href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}"> </a>
-			</li>
+	{%if group.get_inactive_topic_list%}
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<td>话题</td>
+				<td>回应/阅</td>
+				<td>最后回应</td>
+				<td>作者</td>
+			</tr>
+		</thead>
+	
+		<tbody>
+			{%for topic in group.get_inactive_topic_list%}
+			<tr>
+				<td><a href="/group/{{group.url_number}}/topic/{{topic.url_number}}/">{{topic.title}}</a></td>
+				<td>{{topic.replys}}/{{topic.clicks}}</td>
+				<td>{{topic.update_time|date:"Y-m-d H:i:s"}}</td>
+				<td><a href="/people/{{topic.creator.user.url_number}}/">{{topic.creator.user.public_profile.realname}}</a></td>
+			</tr>
 			{%endfor%}
-		</ul>
-		{%else%}
-		<p>无</p>
-		{%endif%}
-		</div>
+		</tbody>
+	
+	</table>
+	{%else%}
+	<div class="span2">
+		<h1>没有话题</h1>
 	</div>
+	{%endif%}
+{%endif%}
 </div>
 {%endblock%}
+
 {%block otherbody%}
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
@@ -108,38 +133,10 @@
 		<form class="span3" method="post">
 			{% csrf_token %}
 			{{form.as_p}}
-			<button class="btn btn-primary" type="submit">发布</button>
+			<button class="btn btn-primary" type="submit">
+				发布
+			</button>
 		</form>
 	</div>
 </div>
-{%endblock%}
-{%block otherscript%}
-<script type="text/javascript" src="{{STATIC_URL}}js/csrf.js"></script>
-
-<script type="text/javascript">
-$().ready(function(){
-	$('#quit').live('click',function quit () {
-		$.post("{%url group.views.quitgroup group.url_number%}",
-		function () {
-			$('#outer').load(location.href+' #enter_button');
-			$('#topic_outer').load(location.href+' #topic_button');
-			$('#member_list').load(location.href+' #member_list');
-			
-		});
-	});
-	
-	$('#enter').live('click',function enter () {
-		$.post("{%url group.views.entergroup group.url_number%}",
-		function () {
-			$('#outer').load(location.href+' #enter_button');
-			$('#topic_outer').load(location.href+' #topic_button');
-			$('#member_list').load(location.href+' #member_list');
-			
-		});
-	});
-	
-});
-</script>
-					
-
 {%endblock%}

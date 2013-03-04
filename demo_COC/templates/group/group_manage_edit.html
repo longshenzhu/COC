@@ -1,20 +1,32 @@
-{%extends "accounts/accounts_base.html"%}
+{%extends "group/group_manage.html"%}
 {%block othercss%}
 <link href="{{STATIC_URL}}css/bootstrap-fileupload.css" rel="stylesheet"/>
-<link href="{{STATIC_URL}}css/datepicker.css" rel="stylesheet"/>
 {%endblock%}
-{%block container%}
-<div class="span9 offset1 well">
+{%block tab_nav%}
+	<li class="active">
+		<a href="../manage_edit/">资料编辑</a>
+	</li>
+	<li>
+		<a href="../manage_members/">成员管理</a>
+	</li>
+	<li>
+		<a href="../manage_advance/">高级设定</a>
+	</li>
+{%endblock%}
+
+{%block manage_content%}
+<div class="span9">
 	<form class="form-horizontal" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
-		<h3 class="success"  style="color:#3366FF;margin-left:170px;"><strong>个人资料</strong></h3>
 		<div class="row">
 			<div class="span3">
 				<div class="fileupload fileupload-new" data-provides="fileupload">
+					
 					<div class="fileupload-preview thumbnail span3" style="height: 260px"></div>
 					<div class="span3">
-						<span class="btn btn-file"><span class="fileupload-new">选择图片</span><span class="fileupload-exists">换一张</span>
-							<input type="file" name="face" id="id_face"/>
+						
+						<span class="btn btn-file"><span class="fileupload-new">选择小组Logo</span><span class="fileupload-exists">换一张</span>
+							<input type="file" name="logo" id="id_logo" value=""/>
 						</span>
 						<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">删除</a>
 					</div>
@@ -22,19 +34,20 @@
 			</div>
 			<div class="span6">
 				<div class="control-group">
-					<label class="control-label" for="id_realname">真实姓名</label>
+					<label class="control-label" for="id_name">小组名称</label>
 					<div class="controls">
-						<input type="text" id="id_realname" name="realname" placeholder="请输入真实姓名" value="{{current_user.public_profile.realname}}"/>
+						<input type="text" id="id_name" name="name" value="{{group.name}}"/>
 					</div>
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="id_birthday" >生日</label>
+					<label class="control-label" for="id_introduction" >小组简介</label>
 					<div class="controls date">
-						<input type="text" id="id_birthday" name="birthday" value="{{current_user.public_profile.birthday|date:"m/d/Y"}}"/>
+						<textarea type="text" id="id_introduction" name="introduction">{{group.introduction}}</textarea>
 					</div>
 				</div>
-
+				
+				
 				<div class="control-group">
 					<div class="controls">
 						<button class="btn btn-large btn-success" style="margin-left:0px; width: 140px;" type="submit">
@@ -49,8 +62,4 @@
 {%endblock%}
 {%block otherscript%}
 <script type="text/javascript" src="{{STATIC_URL}}js/bootstrap-fileupload.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/bootstrap-datepicker.js"></script>
-<script type="text/javascript">
-$('#id_birthday').datepicker()
-</script>
 {%endblock%}
