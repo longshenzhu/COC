@@ -41,3 +41,4 @@ class NewFeedForm(forms.Form):
      
 class AccountsModifyPasswordForm(forms.Form):       
     pass
+

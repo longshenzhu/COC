@@ -57,3 +57,4 @@ class Post(Document):
     def active(self):#设为可见
         self.is_active = True
     
+

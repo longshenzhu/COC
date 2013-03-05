@@ -2,7 +2,7 @@
 from mongoengine.django.auth import User
 from mongoengine import Document, fields, CASCADE, EmbeddedDocument, PULL
 from mongoengine import signals
-# Create your models here.
+
 
 
 class Public_Profile(EmbeddedDocument):
@@ -114,4 +114,3 @@ class S_G_Card(Document):
 signals.post_save.connect(Event.event_post_save, sender=S_G_Card)
     
 
-        
