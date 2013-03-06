@@ -42,8 +42,8 @@
 			<div class="navbar-inner">
 
 				<div class="container">
-					<div class="row">
-						<div class="span12">
+					
+						<div class="span11" style="width: 1110px;">
 							<a class="brand" href="#">同校网</a>
 							<div class="nav-collapse">
 								<ul class="nav">
@@ -53,8 +53,12 @@
 									
 								</ul>
 								<ul class="nav pull-right">
+									{%if current_user%}
 									<li class="dropdown pull-right">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 账户 <b class="caret"></b></a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+											
+											<img src="{{current_user.public_profile.face}}" style="height: 20px;" />
+										</a>
                                         
 										<ul class="dropdown-menu">
 											<li>
@@ -66,10 +70,43 @@
                                             </li>
 										</ul>
 									</li>
+									<li class="dropdown pull-right">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+											
+											<i class="icon-envelope icon-white" ></i>
+										</a>
+                                        
+										<ul class="dropdown-menu">
+											<li>
+												<a tabindex="-1" href="/logout/">注销</a>
+                                                
+											</li>
+                                            <li>
+                                            	<a tabindex="0" href="/edit_profile/">修改资料</a>
+                                            </li>
+										</ul>
+									</li>
+									<li class="dropdown pull-right">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+											
+											<i class="icon-bell icon-white" ></i>
+										</a>
+                                        
+										<ul class="dropdown-menu">
+											<li>
+												<a tabindex="-1" href="/logout/">注销</a>
+                                                
+											</li>
+                                            <li>
+                                            	<a tabindex="0" href="/edit_profile/">修改资料</a>
+                                            </li>
+										</ul>
+									</li>
+									{%endif%}
 								</ul>
 							</div>
 						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>
