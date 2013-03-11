@@ -2,14 +2,22 @@
 {%block leftspan6%}
 <h3>我的广播</small></h3>
 <hr>
-
-<form method="post">
-	{% csrf_token %}
-	<textarea class="span6 offset1" name="content"></textarea>
-	<button class="btn">
-	发布
-</button>
-</form>
+<div class="row">
+	<div class="span1">
+		<img src="{{current_user.public_profile.face}}">
+	</div>
+	<form method="post">
+		{% csrf_token %}
+		<div class="span1">
+	    <textarea class="span6" style="resize:none; height: 66px">
+	    </textarea>
+	    </div>
+	    
+		<button class="offset6 btn btn-primary " style="padding-left: 20px;padding-right: 20px">
+		发布
+		</button>
+	</form>
+</div>
 {%if current_user.get_event_list%}
 <div class="media">
 	{%for event in current_user.get_event_list%}
@@ -32,15 +40,17 @@
 {%block rightspan3%}
 <div class="row">
 
-	<div class="span3">
+	<div class="span3" style="margin-top:75px">
 		&nbsp;
-		<a href="/corporation/creat_coporation/" class="btn btn-block btn-primary">创建社团</a>
-		&nbsp;
-		<a href="/group/creat_group/" class="btn btn-block btn-success">创建小组</a>
-		<hr>
-		<p align="center">
+		<div class="btn-group">
+            <a href="/corporation/creat_coporation/" class="btn btn-primary" style="width:109px">创建社团</a>
+            &nbsp;
+			<a href="/group/creat_group/" class="btn btn-success" style="width:109px">创建小组</a>
+        </div>
+        &nbsp;
+		<h3 align="center">
 			-----关注的人------
-		</p>
+		</h3>
 		{%if current_user.get_sscard.watched_students%}
 		<ul class="thumbnails">
 			{%for wstudent in current_user.get_sscard.watched_students%}
@@ -54,10 +64,11 @@
 			您还没有关注其他人
 		</p>
 		{%endif%}
+		&nbsp;
 		<hr>
-		<p align="center">
+		<h3 align="center">
 			-----加入的小队------
-		</p>
+		</h3>
 		{%if current_user.get_sgcard%}
 		<ul class="thumbnails">
 			{%for sgcard in current_user.get_sgcard%}
@@ -72,9 +83,9 @@
 		</p>
 		{%endif%}
 		<hr>
-		<p align="center">
+		<h3 align="center">
 			-----加入的社团------
-		</p>
+		</h3>
 		{%if current_user.corporation_list%}
 		<ul class="thumbnails">
 			{%for corporation in current_user.corporation_list%}
