@@ -92,6 +92,8 @@ class S_C_Card(Document):
     is_active = fields.BooleanField()
     is_admin = fields.BooleanField()#是否是社团管理员
     
+    def description(self):
+        return self.user.public_profile.realname + "加入了" + self.corporation.name
 
 class Event(Document):
     user = fields.ReferenceField(Student)
@@ -112,5 +114,5 @@ class S_G_Card(Document):
         return self.user.public_profile.realname + "加入了" + self.group.name
 
 signals.post_save.connect(Event.event_post_save, sender=S_G_Card)
-    
+signals.post_save.connect(Event.event_post_save, sender=S_C_Card)
 

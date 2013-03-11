@@ -43,7 +43,7 @@ class Corporation(Document):
     
     def get_activity_list(self):  # 得到活动列表
         from activity.models import Activity
-        return Activity.objects(sponsor=self).all()
+        return Activity.objects(sponsor=self)
         
     
     

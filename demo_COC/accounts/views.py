@@ -20,7 +20,7 @@ def indexsignup(request):
     form = AccountsSignupForm(request.POST)
     print form.is_valid()
     if form.is_valid():
-        email = form.cleaned_data['email']
+        email = form.clean_email()
         password = form.cleaned_data['password']
         realname = form.cleaned_data['realname']
         gender = form.cleaned_data['gender']
@@ -91,8 +91,8 @@ def signup_profile(request):
 def indexlogin(request):
     form = AccountsLoginForm(request.POST)
     if form.is_valid():
-        email = form.cleaned_data['login_email']
-        password = form.cleaned_data['login_password']
+        email = form.clean_email()
+        password = form.clean_password()
         is_remember = form.cleaned_data['remember_me']
         if is_remember != 'remember':
             request.session.set_expiry(0)

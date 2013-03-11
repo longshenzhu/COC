@@ -12,6 +12,13 @@ class AccountsSignupForm(forms.Form):
     
     gender = forms.CharField()
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            Student.objects.get(email=email)
+        except Student.DoesNotExist:
+            return email
+        raise forms.ValidationError("此邮箱已经注册")
     
         
      
@@ -20,6 +27,22 @@ class AccountsLoginForm(forms.Form):
     login_password = forms.CharField(min_length=6,label=u'密码')
     remember_me = forms.CharField(required=False)
     
+    def clean_email(self):
+        email = self.cleaned_data['login_email']
+        try:
+            Student.objects.get(email=email)
+        except Student.DoesNotExist:
+            raise forms.ValidationError("邮箱不存在！")
+        return email
+    
+    def clean_password(self):
+        email = self.cleaned_data['login_email']
+        password = self.cleaned_data['login_password']
+        try:
+            Student.objects.get(email=email,password=password)
+        except Student.DoesNotExist:
+            raise forms.ValidationError("邮箱和密码不匹配！")
+        return password
     
     
 
@@ -35,7 +58,7 @@ class AccountsModifyProfileForm(forms.Form):
     birthday = forms.DateField(label=u'生日')
     
 class NewFeedForm(forms.Form):
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(required=False,widget=forms.Textarea)
     
 
      

@@ -5,4 +5,5 @@ class Sitemail(Document):
     title = fields.StringField()
     content = fields.StringField()
     creat_time = fields.DateTimeField()
-    reciver = fields.ReferenceField(Student, reverse_delete_rule=CASCADE)
+    author = fields.ReferenceField(Student, reverse_delete_rule=CASCADE)
+    reciver = fields.ListField(fields.ReferenceField(Student, reverse_delete_rule=CASCADE))

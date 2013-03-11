@@ -10,7 +10,7 @@ import datetime
 
 class Activity(Document):
     name = fields.StringField(required=True, verbose_name=u'活动名称')
-    poster = fields.ImageField()  # 活动海报
+    poster = fields.StringField()  # 活动海报
     file = fields.FileField()  # 活动文件，供上传下载
     
     detail = fields.StringField(required=True, verbose_name=u'活动详情')
@@ -25,7 +25,8 @@ class Activity(Document):
     def liked_activity(self, student):  # 喜欢活动
         return self.update(push__liked_activity=student)
 
-    
+    def get_date_list(self):#得到date列表
+        return Date.objects(activity=self)
     
     
     
