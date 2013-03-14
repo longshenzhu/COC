@@ -2,7 +2,7 @@
 {%block title%}{{student}}的首页{%endblock%}
 
 {%block leftspan6%}
-<h3>{{student.public_profile.realname}}<small>来自xxx学校</small></h3>
+<h4>{{student.public_profile.realname}}<small>来自xxx学校</small></h4>
 <hr>
 <ul class="nav nav-tabs" id="myTab">
 	{%block tab%}
@@ -16,8 +16,8 @@
 {%endblock%}
 
 {%block rightspan3%}
-<div class="row">
-	<div class="span3">
+<div class="row-fluid">
+	
 		<div class="thumbnail">
 			<img src="{{student.public_profile.face}}">
 			<div id="outer">
@@ -43,60 +43,27 @@
 				
 			</div>
 		</div>
-	</div>
+</div>
 
-	<div class="span3">
-		<hr>
-		<p align="center">
-			-----关注的人------
-		</p>
-		{%if student.get_sscard.get.watched_students%}
-		<ul class="thumbnails">
-			{%for wstudent in student.get_sscard.get.watched_students%}
-			<li class="span1">
-				<a class="thumbnail" href="/people/{{wstudent.url_number}}/"> <img src="{{wstudent.public_profile.face}}"> </a>
-			</li>
-			{%endfor%}
-		</ul>
-		{%else%}
-		<p>
-			他还没有关注其他人
-		</p>
-		{%endif%}
-		<hr>
-		<p align="center">
-			-----加入的小队------
-		</p>
-		{%if student.get_sgcard%}
-		<ul class="thumbnails">
-			{%for sgcard in student.get_sgcard%}
-			<li class="span1">
-				<a class="thumbnail" href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}"> </a>
-			</li>
-			{%endfor%}
-		</ul>
-		{%else%}
-		<p>
-			他还没有加入小组
-		</p>
-		{%endif%}
-		<hr>
-		<p align="center">
-			-----加入的社团------
-		</p>
-		{%if student.corporation_list%}
-		<ul class="thumbnails">
-			{%for corporation in student.corporation_list%}
-			<li class="span1">
-				<a class="thumbnail" href="/group/{{corporation.url_number}}/"> <img src="{{MEDIA_URL}}{{corporation.logo}}"> </a>
-			</li>
-			{%endfor%}
-		</ul>
-		{%else%}
-		<p>
-			他还没有加入社团
-		</p>
-		{%endif%}
+	<div class="row-fluid">
+		<div class="span12">
+		</div>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>姓名：</td>
+					<td>{{student.public_profile.realname}}</td>
+				</tr>
+				<tr>
+					<td>性别：</td>
+					<td>{{student.public_profile.gender}}</td>
+				</tr>
+				<tr>
+					<td>生日：</td>
+					<td>{{student.public_profile.birthday|date:"m/d/Y"}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 {%endblock%}

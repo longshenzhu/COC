@@ -35,7 +35,7 @@ class AccountsModifyProfileForm(forms.Form):
     birthday = forms.DateField(label=u'生日')
     
 class NewFeedForm(forms.Form):
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(required=False,widget=forms.Textarea)
     
 
      

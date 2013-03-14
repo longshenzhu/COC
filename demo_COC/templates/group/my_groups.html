@@ -30,14 +30,14 @@
 <div class="row">
 
 	<div class="span3">
-		<p align="center">
-			-----管理的小组-----
-		</p>
+		<h4 align="left" style="color: blue">
+			管理的小组.. ..
+		</h4>
 		{%if current_user.get_admin_group%}
 		<ul class="thumbnails">
 			{%for sgcard in current_user.get_admin_group%}
-			<li class="span1">
-				<a class="thumbnail" href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}"> </a>
+			<li>
+				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid face"></a>
 			</li>
 			{%endfor%}
 		</ul>
@@ -49,14 +49,14 @@
 		
 	</div>
 	<div class="span3">
-		<p align="center">
-			-----参加的小组------
-		</p>
+		<h4 align="left" style="color: blue">
+			参加的小组.. ..
+		</h4>
 		{%if current_user.get_in_group%}
 		<ul class="thumbnails">
 			{%for sgcard in current_user.get_in_group%}
-			<li class="span1">
-				<a class="thumbnail" href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}"> </a>
+			<li>
+				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid face"></a>
 			</li>
 			{%endfor%}
 		</ul>

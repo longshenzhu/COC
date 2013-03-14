@@ -19,13 +19,13 @@
 {%endblock%}
 {%block container%}
 <div class="container">
-<div class="span11 well">
+<div class="span11">
 	<div class="row">
-		<div class="span8">
+		<div class="span7 well">
 			{%block leftspan6%}
 			{%endblock%}
 		</div>
-		<div class="span3">
+		<div class="span3 well">
 			{%block rightspan3%}
 			<div class="row">
 				<div class="span3">
@@ -53,15 +53,15 @@
 
 				<div class="span3">
 					<hr>
-					<p align="center">
-						-----小组管理员-----
-					</p>
+					<h4 align="left" style="color: blue">
+						小组管理员.. ..
+					</h4>
 					<div id="admin_list">
 						{%if group.get_admin_list%}
 						<ul class="thumbnails">
 							{%for user in group.get_admin_list%}
-							<li class="span1">
-								<a class="thumbnail" href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}"> </a>
+							<li>
+								<a href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}" class="img-polaroid face"></a>
 							</li>
 							{%endfor%}
 						</ul>
@@ -72,15 +72,15 @@
 						{%endif%}
 					</div>
 					<hr>
-					<p align="center">
-						-----小组成员-----
-					</p>
+					<h4 align="left" style="color: blue">
+						小组成员.. ..
+					</h4>
 					<div id="member_list">
 						{%if group.get_member_list%}
 						<ul class="thumbnails">
 							{%for user in group.get_member_list%}
-							<li class="span1">
-								<a class="thumbnail" href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}"> </a>
+							<li>
+								<a href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}" class="img-polaroid face"></a>
 							</li>
 							{%endfor%}
 						</ul>

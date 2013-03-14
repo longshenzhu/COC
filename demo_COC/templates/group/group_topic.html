@@ -2,14 +2,13 @@
 {%block leftspan6%}
 
 <div class="span7 media">
-	<hr>
-	<a class="pull-left span1" href="/people/{{topic.creator.user.url_number}}/"> <img class="media-object" src="{{topic.creator.user.public_profile.face}}"> </a>
+	<a class="pull-left" href="/people/{{topic.creator.user.url_number}}/"> <img class="img-polaroid face" src="{{topic.creator.user.public_profile.face}}"> </a>
 	<div class="media-body">
 		<h3 class="media-heading">{{topic.title}}</h3>
 		来自<a href="/people/{{topic.creator.user.url_number}}/">{{topic.creator.user.public_profile.realname}}</a><small class="muted">&nbsp;&nbsp;&nbsp;{{topic.creat_time|date:"Y-m-d H:i:s"}}</small>
-		<hr>
+		
 		<p>{{topic.content}}</p>
-		<hr>
+		
 		<p class="text-right">
 		{%ifequal current_user topic.creator.user%}
 		- <span><a>修改</a></span>
@@ -22,7 +21,7 @@
 		</p>
 	</div>
 </div>
-<hr>
+
 <div class="span8 media">
 	{%for post in topic.get_post_list%}
 	<div class="span7 media">

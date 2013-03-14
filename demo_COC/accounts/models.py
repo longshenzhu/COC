@@ -21,7 +21,6 @@ class Feed(EmbeddedDocument):
     content = fields.StringField()
     creat_time = fields.DateTimeField()
 
-    
 
 
 
