@@ -1,44 +1,56 @@
 {%extends 'group/group_base.html'%}
 {%block leftspan6%}
-<h3>我的小组话题</small></h3>
-<hr>
-<ul class="nav nav-tabs" id="myTab">
-	{%block tabnav%}
-	<li class="active">
-		<a href="../my_groups_news">最新话题</a>
-	</li>
-	<li>
-		<a href="../my_groups_creat">我发起的话题</a>
-	</li>
-	<li>
-		<a href="../my_groups_reply">我回应的话题</a>
-	</li>
-	{%endblock%}
-</ul>
-<div class="tab-content">
-	<div class="tab-pane active" id="home">
-		{%if current_user.grouptopics%}
-		{%block table%}
+<div class="row-fluid">
+	<h4>我的小组话题</h4>
+	<hr>
+	<ul class="nav nav-tabs" id="myTab">
+		{%block tabnav%}
+		<li class="active">
+			<a href="../my_groups_news">最新话题</a>
+		</li>
+		<li>
+			<a href="../my_groups_creat">我发起的话题</a>
+		</li>
+		<li>
+			<a href="../my_groups_reply">我回应的话题</a>
+		</li>
 		{%endblock%}
-		{%else%}
-		<h2>无</h2>
-		{%endif%}
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane active" id="home">
+			{%if current_user.grouptopics%}
+			{%block table%}
+			{%endblock%}
+			{%else%}
+			<h2>无</h2>
+			{%endif%}
+		</div>
 	</div>
 </div>
 {%endblock%}
 {%block rightspan3%}
-<div class="row">
-
-	<div class="span3">
-		<h4 align="left" style="color: blue">
-			管理的小组.. ..
-		</h4>
+<div class="row-fluid">
+	<div class="span12">
+		<p align="left" style="color: green">
+			管理的小组...
+		</p>
 		{%if current_user.get_admin_group%}
-		<ul class="thumbnails">
+		<ul class="thumbnails row-fluid">
 			{%for sgcard in current_user.get_admin_group%}
-			<li>
-				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid face"></a>
+				{%if forloop.counter <= 3%}
+			<li class="span3">
+				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
 			</li>
+				{%endif%}
+			{%endfor%}
+		</ul>
+		<ul class="thumbnails row-fluid">
+			{%for sgcard in current_user.get_in_group%}
+				{%if forloop.counter > 3 and forloop.counter <= 6%}
+			<li class="span3">
+				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
+			</li>
+				{%endif%}
 			{%endfor%}
 		</ul>
 		{%else%}
@@ -46,18 +58,26 @@
 			没有需要您管理的小组
 		</p>
 		{%endif%}
-		
 	</div>
 	<div class="span3">
-		<h4 align="left" style="color: blue">
-			参加的小组.. ..
-		</h4>
+		<p align="left" style="color: green">
+			参加的小组...
+		</p>
 		{%if current_user.get_in_group%}
 		<ul class="thumbnails">
 			{%for sgcard in current_user.get_in_group%}
 			<li>
-				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid face"></a>
+				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid"></a>
+			</li>		
+			{%endfor%}
+		</ul>
+		<ul class="thumbnails">
+			{%for sgcard in current_user.get_in_group%}
+				{%if forloop.counter > 3 and forloop.counter <= 6%}
+			<li>
+				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid"></a>
 			</li>
+				{%endif%}
 			{%endfor%}
 		</ul>
 		{%else%}
@@ -65,9 +85,7 @@
 			您还没有加入小组
 		</p>
 		{%endif%}
-		
 	</div>
-	
 </div>
 {%endblock%}
 {%block otherscript%}
