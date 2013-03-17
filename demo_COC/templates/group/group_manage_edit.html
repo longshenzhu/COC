@@ -15,15 +15,15 @@
 {%endblock%}
 
 {%block manage_content%}
-<div class="span9">
+<div class="row-fluid">
 	<form class="form-horizontal" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
-		<div class="row">
-			<div class="span3">
+		<div class="row-fluid">
+			<div class="span6">
 				<div class="fileupload fileupload-new" data-provides="fileupload">
 					
-					<div class="fileupload-preview thumbnail span3" style="height: 260px"></div>
-					<div class="span3">
+					<div class="fileupload-preview thumbnail span12"></div>
+					<div class="span6">
 						
 						<span class="btn btn-file"><span class="fileupload-new">选择小组Logo</span><span class="fileupload-exists">换一张</span>
 							<input type="file" name="logo" id="id_logo" value=""/>

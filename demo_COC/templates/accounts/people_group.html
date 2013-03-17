@@ -14,7 +14,6 @@
 {%if student.get_sgcard%}
 <ul class="thumbnails row-fluid">
 	{%for sgcard in student.get_sgcard%}
-	{%for((student.get_sgcard.count/3+1)%}
 	<li class="span4">
 		<div class="span6">
 		<a class="pull-left" href="/group/{{sgcard.group.url_number}}/"> <img class="img-polaroid span10" src="{{sgcard.group.logo}}"></a>

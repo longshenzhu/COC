@@ -1,44 +1,41 @@
 {%extends "group/group_base.html"%}
 {%block leftspan6%}
-<h3>{{group.name}}<small>来自</small></h3>
-<div id="ask_outer">
-{%if current_user in group.get_member_list%}
-<div class="offset5">
-	<button class="btn btn-primary span2" id="ask_for_admin">
-		申请管理权
-	</button>
-</div>
-{%else%}
+<h4>{{group.name}}<small>来自</small></h4>
+<div id="ask_outer" class="row-fluid">
+	{%if current_user in group.get_member_list%}
+	<div class="">
+		<button class="btn btn-primary" id="ask_for_admin">
+			申请管理权
+		</button>
+	</div>
+	{%else%}
 	{%if current_user in group.get_admin_list%}
-	<div class="offset5">
-		<a class="btn btn-primary span2" href="manage_edit/">
-			小组管理
-		</a>
+	<div class="pull-right">
+		<a class="btn btn-primary" href="manage_edit/">小组管理 </a>
 	</div>
 	{%endif%}
-{%endif%}
+	{%endif%}
 </div>
-<h3>&nbsp;</h3>
+<h6>&nbsp;</h6>
 <div class="well">
 	创建于{{group.birthday|date:"Y-m-d H:i:s"}}
 </div>
 <hr>
-<div class="row">
-<div class="span2">
-	<h4>最近小组话题</h4>
-</div>
-
-<div id="topic_outer">
-	{%if current_user in group.get_user_list%}
-	<div class="offset5" id="topic_button">
-		<button class="btn btn-success span2" data-toggle="modal" data-target="#myModal">
-			发布话题
-		</button>
+<div class="row-fluid">
+	<div class="span4">
+		<h4 class="pull-left">最近小组话题</h4>
 	</div>
-	{%endif%}
+	<div id="topic_outer" class="pull-right">
+		{%if current_user in group.get_user_list%}
+		<div class="" id="topic_button">
+			<button class="btn btn-success" data-toggle="modal" data-target="#myModal">
+				发布话题
+			</button>
+		</div>
+		{%endif%}
+	</div>
 </div>
-</div>
-<hr class="span7">
+<hr class="row-fluid">
 {%if group.get_topic_list%}
 <table class="table table-hover">
 	<thead>
@@ -60,23 +57,22 @@
 		</tr>
 		{%endfor%}
 	</tbody>
-
 </table>
 {%else%}
-<div class="span8">
-	<h1>没有话题</h1>
+<div class="row-fluid">
+	<h3>没有话题</h3>
 </div>
 {%endif%}
 
 <div id="inactive_topic">
-{%if current_user in group.get_admin_list%}
-<hr class="span7">
-	<div class="row">
-		<div class="span2">
+	{%if current_user in group.get_admin_list%}
+	<hr class="row-fluid">
+	<div class="row-fluid">
+		<div class="span4">
 			<h4>话题回收站</h4>
 		</div>
 		<div>
-			<div class="offset5">
+			<div class="pull-right">
 				<button class="btn btn-info">
 					全部恢复
 				</button>
@@ -86,7 +82,7 @@
 			</div>
 		</div>
 	</div>
-	<hr class="span7">
+	<hr class="row-fluid">
 
 	{%if group.get_inactive_topic_list%}
 	<table class="table table-hover">
@@ -98,7 +94,7 @@
 				<td>作者</td>
 			</tr>
 		</thead>
-	
+
 		<tbody>
 			{%for topic in group.get_inactive_topic_list%}
 			<tr>
@@ -109,14 +105,14 @@
 			</tr>
 			{%endfor%}
 		</tbody>
-	
+
 	</table>
 	{%else%}
-	<div class="span2">
-		<h1>没有话题</h1>
+	<div class="row-fluid">
+		<h3>回收站没有话题</h3>
 	</div>
 	{%endif%}
-{%endif%}
+	{%endif%}
 </div>
 {%endblock%}
 
@@ -140,3 +136,4 @@
 	</div>
 </div>
 {%endblock%}
+

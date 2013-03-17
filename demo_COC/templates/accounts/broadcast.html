@@ -96,7 +96,13 @@
 				{%endif%}
 			{%endfor%}
 		</ul>
+		{{current_user.get_sscard}}<br />
+		{{current_user.get_sscard.get}}<br />
+		{{current_user.get_sscard.get.watched_students}}<br />
+		{{current_user.get_sgcard}}
+		{%if current_user.get_sscard.get.watched_students.count > 8%}
 		<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
+		{%endif%}
 		{%else%}
 		<p class="alert fade in">
 			您还没有关注其他人
@@ -111,7 +117,7 @@
 		{%if current_user.get_sgcard%}
 		<ul class="thumbnails">
 			{%for sgcard in current_user.get_sgcard%}
-				{%if forloop.counter <= 8%}
+				{%if forloop.counter <= 4%}
 			<li class="span3">
 				<a href="/group/{{sgcard.group.url_number}}/"><img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
 			</li>
@@ -127,7 +133,9 @@
 				{%endif%}
 			{%endfor%}
 		</ul>
+		{%if current_user.get_sgcard.count > 8%}
 		<a class="pull-right" href="/people/{{current_user.url_number}}/group/" style="color: green">>更多</a>
+		{%endif%}
 		{%else%}
 		<p class="alert fade in">
 			您还没有加入小组
@@ -158,7 +166,9 @@
 				{%endif%}
 			{%endfor%}
 		</ul>
+		{%if current_user.corporation_list.count > 8%}
 		<a class="pull-right" href="/people/{{current_user.url_number}}/corporation/" style="color: green">>更多</a>
+		{%endif%}
 		{%else%}
 		<p class="alert fade in">
 			您还没有加入社团

@@ -37,7 +37,7 @@
 		{%if current_user.get_admin_group%}
 		<ul class="thumbnails row-fluid">
 			{%for sgcard in current_user.get_admin_group%}
-				{%if forloop.counter <= 3%}
+				{%if forloop.counter <= 4%}
 			<li class="span3">
 				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
 			</li>
@@ -45,8 +45,8 @@
 			{%endfor%}
 		</ul>
 		<ul class="thumbnails row-fluid">
-			{%for sgcard in current_user.get_in_group%}
-				{%if forloop.counter > 3 and forloop.counter <= 6%}
+			{%for sgcard in current_user.get_admin_group%}
+				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li class="span3">
 				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
 			</li>
@@ -58,22 +58,25 @@
 			没有需要您管理的小组
 		</p>
 		{%endif%}
+		<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
 	</div>
-	<div class="span3">
+	<div class="row-fluid">
 		<p align="left" style="color: green">
 			参加的小组...
 		</p>
 		{%if current_user.get_in_group%}
-		<ul class="thumbnails">
+		<ul class="thumbnails row-fluid">
 			{%for sgcard in current_user.get_in_group%}
-			<li>
-				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid"></a>
-			</li>		
+				{%if forloop.counter <= 4%}
+			<li class="span3">
+				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
+			</li>
+				{%endif%}		
 			{%endfor%}
 		</ul>
 		<ul class="thumbnails">
 			{%for sgcard in current_user.get_in_group%}
-				{%if forloop.counter > 3 and forloop.counter <= 6%}
+				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li>
 				<a href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}" class="img-polaroid"></a>
 			</li>
@@ -85,6 +88,7 @@
 			您还没有加入小组
 		</p>
 		{%endif%}
+		<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
 	</div>
 </div>
 {%endblock%}
