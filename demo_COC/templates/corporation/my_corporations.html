@@ -36,8 +36,8 @@
 		{%if current_user.get_sccard%}
 		<ul class="thumbnails">
 			{%for sccard in current_user.get_sccard%}
-			<li class="span1">
-				<a class="thumbnail" href="/group/{{sccard.corporation.url_number}}/"> <img src="{{sccard.corporation.logo}}"> </a>
+			<li>
+				<a href="/group/{{sccard.corporation.url_number}}/"> <img src="{{sccard.corporation.logo}}" class="img-polaroid face"> </a>
 			</li>
 			{%endfor%}
 		</ul>

@@ -3,9 +3,6 @@
 <li>
 	<a href="../">动态</a>
 </li>
-<li>
-	<a href="../profile/">资料</a>
-</li>
 <li class="active">
 	<a href="../corporation/">社团</a>
 </li>
@@ -19,7 +16,7 @@
 	{%for corporation in sutdent.corporationlist%}
 	<div class="span6 media">
 		<hr>
-		<a class="pull-left span1" href="http://{{host}}/corporation/{{corporation.url_number}}/"> <img class="media-object" src="{{MEDIA_URL}}img/corporation/{{corporation.url_number}}.jpg"> </a>
+		<a class="pull-left span1" href="http://{{host}}/corporation/{{corporation.url_number}}/"><img class="img-rounded face" src="{{MEDIA_URL}}img/corporation/{{corporation.url_number}}.jpg"></a>
 		<div class="media-body">
 			<h4 class="media-heading">{{corporation.name}}</h4>
 			创建于{{corporation.birthyear}}

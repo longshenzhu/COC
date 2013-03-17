@@ -4,9 +4,6 @@
 	<a href="../feeds/">动态</a>
 </li>
 <li>
-	<a href="../profile/">资料</a>
-</li>
-<li>
 	<a href="../corporation/">社团</a>
 </li>
 <li class="active">
@@ -15,10 +12,12 @@
 {%endblock%}
 {%block content%}
 {%if student.get_sgcard%}
-<ul class="thumbnails">
+<ul class="thumbnails row-fluid">
 	{%for sgcard in student.get_sgcard%}
-	<li>
-		<a class="pull-left span1" href="/group/{{sgcard.group.url_number}}/"> <img class="media-object" src="{{sgcard.group.logo}}"> </a>
+	<li class="span4">
+		<div class="span6">
+		<a class="pull-left" href="/group/{{sgcard.group.url_number}}/"> <img class="img-polaroid span10" src="{{sgcard.group.logo}}"></a>
+		</div>
 		<div class="media-body">
 			<h4 class="media-heading">{{sgcard.group.name}}</h4>
 			<p>{{sgcard.group.get_user_list.count}}个成员</p>

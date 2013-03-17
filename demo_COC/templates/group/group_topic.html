@@ -2,14 +2,13 @@
 {%block leftspan6%}
 
 <div class="span7 media">
-	<hr>
-	<a class="pull-left span1" href="/people/{{topic.creator.user.url_number}}/"> <img class="media-object" src="{{topic.creator.user.public_profile.face}}"> </a>
+	<a class="pull-left" href="/people/{{topic.creator.user.url_number}}/"> <img class="img-polaroid face" src="{{topic.creator.user.public_profile.face}}"> </a>
 	<div class="media-body">
 		<h3 class="media-heading">{{topic.title}}</h3>
 		来自<a href="/people/{{topic.creator.user.url_number}}/">{{topic.creator.user.public_profile.realname}}</a><small class="muted">&nbsp;&nbsp;&nbsp;{{topic.creat_time|date:"Y-m-d H:i:s"}}</small>
-		<hr>
+		
 		<p>{{topic.content}}</p>
-		<hr>
+		
 		<p class="text-right">
 		{%ifequal current_user topic.creator.user%}
 		- <span><a>修改</a></span>
@@ -22,16 +21,16 @@
 		</p>
 	</div>
 </div>
-<hr>
+
 <div class="span8 media">
-	{%for reply in topic.get_reply_list%}
+	{%for post in topic.get_post_list%}
 	<div class="span7 media">
 		<hr>
-		<a class="pull-left span1" href="/people/{{reply.author.user.url_number}}/"> <img class="media-object" src="{{reply.author.user.public_profile.face}}"> </a>
+		<a class="pull-left span1" href="/people/{{post.author.url_number}}/"> <img class="media-object" src="{{post.author.public_profile.face}}"> </a>
 		<div class="media-body">
-			<a class="media-heading" href="/people/{{reply.author.user.url_number}}/">{{reply.author.user.public_profile.realname}}</a>
-			<span class="muted" style="float: right;height: 16px;"><small>{{reply.creat_time|date:"Y-m-d H:i:s"}}</small></span>
-			<p>{{reply.content}}</p>
+			<a class="media-heading" href="/people/{{post.author.url_number}}/">{{post.author.public_profile.realname}}</a>
+			<span class="muted" style="float: right;height: 16px;"><small>{{post.creat_time|date:"Y-m-d H:i:s"}}</small></span>
+			<p>{{post.content}}</p>
 		</div>
 	</div>
 	{%endfor%}

@@ -1,104 +1,191 @@
 {%extends 'accounts/accounts_base.html'%}
 {%block leftspan6%}
-<h3>我的广播</small></h3>
-<hr>
-<div class="row">
-	<div class="span1">
-		<img src="{{current_user.public_profile.face}}">
+<div class="row-fluid">
+	<h4 style="color: black">我的广播</small></h4>
+	<div class="row-fluid">
+		<div class="span2">
+			<img src="{{current_user.public_profile.face}}" class="img-polaroid">
+		</div>
+		<form method="post" class="span10 well">
+			{% csrf_token %}
+			<div class="row-fluid">
+				<textarea class="span12" style="resize:none;" name="content"></textarea>
+			</div>
+			<div class="row-fluid">
+				<button class="pull-right btn btn-primary span2" id="post_broadcast">
+					发布
+				</button>
+			</div>
+		</form>
 	</div>
-	<form method="post">
-		{% csrf_token %}
-		<div class="span1">
-	    <textarea class="span6" style="resize:none; height: 66px">
-	    </textarea>
-	    </div>
-	    
-		<button class="offset6 btn btn-primary " style="padding-left: 20px;padding-right: 20px">
-		发布
-		</button>
-	</form>
 </div>
-{%if current_user.get_event_list%}
-<div class="media">
-	{%for event in current_user.get_event_list%}
-	<div class="span6 media">
-		<hr>
-		<a class="pull-left span1" href="/people/{{event.user.url_number}}"> <img class="media-object" src="{{event.user.public_profile.face}}"> </a>
-		<div class="media-body">
-			<h4 class="media-heading">{{event.description}}</h4>
+<div class="row-fluid" id="broadcast_list">
+	
+	<h4>友邻广播</h4>
+	{%if current_user.feeds%}
+	
+		{%for feed in current_user.feeds reversed%}
+		<div class="media">
+			<div class="span2">
+				<div class="span8">
+					<a class="pull-left" href="/people/{{current_user.url_number}}"><img class="img-polaroid" src="{{current_user.public_profile.face}}"></a>
+				</div>
+			</div>
+			<div class="broadcast right span10">
+				<div class="arrow"></div>
+				<h3 class="popover-title">{{current_user.public_profile.realname}}<span class="muted pull-right"><small>{{feed.creat_time|timesince}}前</small></span></h3>
+				
+				<div class="popover-content">{{feed.content}}</div>
+			</div>
+		</div>
+		{%endfor%}
+	
+	{%else%}
+	<div class="row-fluid">
+		<div class="alert fade in span12">
+			<button type="button" class="close" data-dismiss="alert">
+				×
+			</button>
+			<p style="color: #ff9400">
+				没有广播
+			</p>
 		</div>
 	</div>
-	{%endfor%}
+	{%endif%}
 </div>
-{%else%}
-<p>
-	没有广播
-</p>
-{%endif%}
+
 
 {%endblock%}
-{%block rightspan3%}
-<div class="row">
 
-	<div class="span3" style="margin-top:75px">
-		&nbsp;
-		<div class="btn-group">
-            <a href="/corporation/creat_coporation/" class="btn btn-primary" style="width:109px">创建社团</a>
-            &nbsp;
-			<a href="/group/creat_group/" class="btn btn-success" style="width:109px">创建小组</a>
-        </div>
-        &nbsp;
-		<h3 align="center">
-			-----关注的人------
-		</h3>
-		{%if current_user.get_sscard.watched_students%}
+
+
+{%block rightspan3%}
+
+
+	<div class="row-fluid">
+		<h4>&nbsp;</h4>
+		<div class="row-fluid">
+			<a href="/corporation/creat_coporation/" class="btn btn-primary span6">创建社团</a>
+			<a href="/group/creat_group/" class="btn btn-success span6">创建小组</a>
+		</div>
+		
+		<div class="span12">
+		</div>
+	</div>
+		
+	<div class="row-fluid">
+		<p align="left" style="color: green">
+			关注的人...
+		</p>
+		{%if current_user.get_sscard.get.watched_students%}
 		<ul class="thumbnails">
-			{%for wstudent in current_user.get_sscard.watched_students%}
-			<li class="span1">
-				<a class="thumbnail" href="/people/{{wstudent.url_number}}/"> <img src="{{wstudent.public_profile.face}}"> </a>
+			{%for wstudent in current_user.get_sscard.get.watched_students%}
+				{%if forloop.counter <= 4%}
+			<li class="span3">
+				<a href="/people/{{wstudent.url_number}}/"><img src="{{wstudent.public_profile.face}}" class="img-polaroid span12"></a>
 			</li>
+				{%endif%}
 			{%endfor%}
 		</ul>
+		<ul class="thumbnails">
+			{%for wstudent in current_user.get_sscard.get.watched_students%}
+				{%if forloop.counter > 4 and forloop.counter <= 8%}
+			<li class="span3">
+				<a href="/people/{{wstudent.url_number}}/"><img src="{{wstudent.public_profile.face}}" class="img-polaroid span12"></a>
+			</li>
+				{%endif%}
+			{%endfor%}
+		</ul>
+		{{current_user.get_sscard}}<br />
+		{{current_user.get_sscard.get}}<br />
+		{{current_user.get_sscard.get.watched_students}}<br />
+		{{current_user.get_sgcard}}
+		{%if current_user.get_sscard.get.watched_students.count > 8%}
+		<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
+		{%endif%}
 		{%else%}
-		<p>
+		<p class="alert fade in">
 			您还没有关注其他人
 		</p>
 		{%endif%}
-		&nbsp;
-		<hr>
-		<h3 align="center">
-			-----加入的小队------
-		</h3>
+		
+	</div>
+	<div class="row-fluid">
+		<p align="left" style="color: green">
+			加入的小队...
+		</p>
 		{%if current_user.get_sgcard%}
 		<ul class="thumbnails">
 			{%for sgcard in current_user.get_sgcard%}
-			<li class="span1">
-				<a class="thumbnail" href="/group/{{sgcard.group.url_number}}/"> <img src="{{sgcard.group.logo}}"> </a>
+				{%if forloop.counter <= 4%}
+			<li class="span3">
+				<a href="/group/{{sgcard.group.url_number}}/"><img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
 			</li>
+				{%endif%}
 			{%endfor%}
 		</ul>
+		<ul class="thumbnails">
+			{%for sgcard in current_user.get_sgcard%}
+				{%if forloop.counter > 4 and forloop.counter <= 8%}
+			<li class="span3">
+				<a href="/group/{{sgcard.group.url_number}}/"><img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
+			</li>
+				{%endif%}
+			{%endfor%}
+		</ul>
+		{%if current_user.get_sgcard.count > 8%}
+		<a class="pull-right" href="/people/{{current_user.url_number}}/group/" style="color: green">>更多</a>
+		{%endif%}
 		{%else%}
-		<p>
+		<p class="alert fade in">
 			您还没有加入小组
 		</p>
 		{%endif%}
-		<hr>
-		<h3 align="center">
-			-----加入的社团------
-		</h3>
+		
+	</div>
+	<div class="row-fluid">
+		<p align="left" style="color: green">
+			关注的社团...
+		</p>
 		{%if current_user.corporation_list%}
 		<ul class="thumbnails">
 			{%for corporation in current_user.corporation_list%}
-			<li class="span1">
-				<a class="thumbnail" href="/group/{{corporation.url_number}}/"> <img src="{{MEDIA_URL}}{{corporation.logo}}"> </a>
-			</li>
+				{%if forloop.counter <= 4%}
+					<li class="span3">
+						<a href="/group/{{corporation.url_number}}/"><img src="{{MEDIA_URL}}{{corporation.logo}}" class="img-polaroid span12"></a>
+					</li>
+				{%endif%}
 			{%endfor%}
 		</ul>
+		<ul class="thumbnails">
+			{%for corporation in current_user.corporation_list%}
+				{%if forloop.counter > 4 and forloop.counter <= 8%}
+					<li class="span3">
+						<a href="/group/{{corporation.url_number}}/"><img src="{{MEDIA_URL}}{{corporation.logo}}" class="img-polaroid span12"></a>
+					</li>
+				{%endif%}
+			{%endfor%}
+		</ul>
+		{%if current_user.corporation_list.count > 8%}
+		<a class="pull-right" href="/people/{{current_user.url_number}}/corporation/" style="color: green">>更多</a>
+		{%endif%}
 		{%else%}
-		<p>
+		<p class="alert fade in">
 			您还没有加入社团
 		</p>
 		{%endif%}
 	</div>
-</div>
+{%endblock%}
+{%block otherscript%}
+
+<script type="text/javascript">
+$().ready(function(){
+	$('#post_broadcast').live('click',function () {
+			$('#outer').load(location.href+' #broadcast_list>*');
+	});
+	
+});
+</script>
+					
+
 {%endblock%}

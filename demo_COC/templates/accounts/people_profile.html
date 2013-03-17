@@ -3,9 +3,6 @@
 <li>
 	<a href="../feeds/">动态</a>
 </li>
-<li class="active">
-	<a href="../profile/">资料</a>
-</li>
 <li>
 	<a href="../corporation/">社团</a>
 </li>
@@ -15,22 +12,6 @@
 {%endblock%}
 {%block content%}
 {%if student.public_profile%}
-<table class="table">
-	<tbody>
-		<tr>
-			<td>姓名：</td>
-			<td>{{student.public_profile.realname}}</td>
-		</tr>
-		<tr>
-			<td>性别：</td>
-			<td>{{student.public_profile.gender}}</td>
-		</tr>
-		<tr>
-			<td>生日：</td>
-			<td>{{student.public_profile.birthday|date:"m/d/Y"}}</td>
-		</tr>
-	</tbody>
-</table>
 {%else%}
 <h2>无</h2>
 {%endif%}
