@@ -96,10 +96,6 @@
 				{%endif%}
 			{%endfor%}
 		</ul>
-		{{current_user.get_sscard}}<br />
-		{{current_user.get_sscard.get}}<br />
-		{{current_user.get_sscard.get.watched_students}}<br />
-		{{current_user.get_sgcard}}
 		{%if current_user.get_sscard.get.watched_students.count > 8%}
 		<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
 		{%endif%}
