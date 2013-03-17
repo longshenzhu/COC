@@ -34,7 +34,7 @@
 						<div id="outer">
 							<div id="enter_button">
 								&nbsp;
-								{%if current_user in group.get_user_list%}
+								{%if current_user in group.get_user_active%}
 
 								<button class="btn btn-block btn-danger" id="quit">
 									退出小组
@@ -57,9 +57,9 @@
 						-----小组管理员-----
 					</p>
 					<div id="admin_list">
-						{%if group.get_admin_list%}
+						{%if group.get_user_admin%}
 						<ul class="thumbnails">
-							{%for user in group.get_admin_list%}
+							{%for user in group.get_user_admin%}
 							<li class="span1">
 								<a class="thumbnail" href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}"> </a>
 							</li>
@@ -75,10 +75,11 @@
 					<p align="center">
 						-----小组成员-----
 					</p>
+					
 					<div id="member_list">
-						{%if group.get_member_list%}
+						{%if group.get_user_not_admin%}
 						<ul class="thumbnails">
-							{%for user in group.get_member_list%}
+							{%for user in group.get_user_not_admin%}
 							<li class="span1">
 								<a class="thumbnail" href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}"> </a>
 							</li>

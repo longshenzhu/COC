@@ -2,14 +2,14 @@
 {%block leftspan6%}
 <h3>{{group.name}}<small>来自</small></h3>
 <div id="ask_outer">
-{%if current_user in group.get_member_list%}
+{%if current_user in group.get_user_not_admin%}
 <div class="offset5">
 	<button class="btn btn-primary span2" id="ask_for_admin">
 		申请管理权
 	</button>
 </div>
 {%else%}
-	{%if current_user in group.get_admin_list%}
+	{%if current_user in group.get_user_admin%}
 	<div class="offset5">
 		<a class="btn btn-primary span2" href="manage_edit/">
 			小组管理
@@ -29,7 +29,7 @@
 </div>
 
 <div id="topic_outer">
-	{%if current_user in group.get_user_list%}
+	{%if current_user in group.get_user_active%}
 	<div class="offset5" id="topic_button">
 		<button class="btn btn-link span2" data-toggle="modal" data-target="#myModal">
 			>>>发布话题
@@ -39,7 +39,7 @@
 </div>
 </div>
 <hr class="span7">
-{%if group.get_topic_list%}
+{%if group.get_topic_active%}
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -49,9 +49,8 @@
 			<td>作者</td>
 		</tr>
 	</thead>
-
 	<tbody>
-		{%for topic in group.get_topic_list%}
+		{%for topic in group.get_topic_active%}
 		<tr>
 			<td><a href="/group/{{group.url_number}}/topic/{{topic.url_number}}/">{{topic.title}}</a></td>
 			<td>{{topic.replys}}/{{topic.clicks}}</td>
@@ -69,7 +68,7 @@
 {%endif%}
 
 <div id="inactive_topic">
-{%if current_user in group.get_admin_list%}
+{%if current_user in group.get_user_admin%}
 <hr class="span7">
 	<div class="row">
 		<div class="span2">
@@ -88,7 +87,7 @@
 	</div>
 	<hr class="span7">
 
-	{%if group.get_inactive_topic_list%}
+	{%if group.get_topic_inactive%}
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -100,7 +99,7 @@
 		</thead>
 	
 		<tbody>
-			{%for topic in group.get_inactive_topic_list%}
+			{%for topic in group.get_topic_inactive%}
 			<tr>
 				<td><a href="/group/{{group.url_number}}/topic/{{topic.url_number}}/">{{topic.title}}</a></td>
 				<td>{{topic.replys}}/{{topic.clicks}}</td>

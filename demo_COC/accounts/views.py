@@ -5,7 +5,8 @@ from PIL import Image
 from django.shortcuts import render_to_response
 from django.core.context_processors import csrf
 from demo_COC.settings import STATIC_URL, MEDIA_ROOT, MEDIA_URL
-from models import Student, Public_Profile, S_S_Card, Feed, Event
+from models import Student, Public_Profile
+from relations.models import S_S_Card
 from django.http import HttpResponseRedirect
 from django.contrib.auth import *
 from forms import AccountsSignupForm, AccountsLoginForm, AccountsModifyProfileForm, NewFeedForm
@@ -34,13 +35,11 @@ def indexsignup(request):
         student.save()
         sscard = S_S_Card(user=student)
         sscard.save()
-        event = Event(user=student)
-        event.save()
         user = authenticate(username=email, password=password)
         request.session.set_expiry(0)
         if user is not None and user.is_active:
             login(request, user)
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/edit_profile/')
         else:
             return render_to_response('404.html', {'STATIC_URL':STATIC_URL})
             
@@ -91,8 +90,8 @@ def signup_profile(request):
 def indexlogin(request):
     form = AccountsLoginForm(request.POST)
     if form.is_valid():
-        email = form.clean_email()
-        password = form.clean_password()
+        email = form.cleaned_data['login_email']
+        password = form.cleaned_data['login_password']
         is_remember = form.cleaned_data['remember_me']
         if is_remember != 'remember':
             request.session.set_expiry(0)
@@ -115,10 +114,10 @@ def index(request):
                 form = NewFeedForm(request.POST)
                 if form.is_valid():
                     content = form.cleaned_data['content']
-                    feed = Feed(content=content)
-                    feed.creat_time = datetime.datetime.now()
-                    current_user.update(push__feeds=feed)
-                    return HttpResponseRedirect('/')
+                    #feed = Feed(content=content)
+                    #feed.creat_time = datetime.datetime.now()
+                    #current_user.update(push__feeds=feed)
+                    return HttpResponseRedirect('/people/'+request.user.url_number+'/')
                     
             else:
                 form = NewFeedForm()
@@ -208,33 +207,16 @@ def redirect_to_feeds(request, url_number):
 def add_watch_student(request, url_number):
     current_user = request.user
     student = Student.objects(url_number=url_number).get()
-    if S_S_Card.objects(user=current_user):
-        sc = S_S_Card.objects(user=current_user).get()
-    else:
-        sc = S_S_Card(user=current_user)
-    
-    if sc.add_watched_students(student):
-        
-        return HttpResponse('success')
-    else:
-        
-        return HttpResponse('fail')
+    sscard = S_S_Card(user_owner=current_user, user_watched=student)
+    sscard.save()
+    return HttpResponse('success')
 
 @login_required(login_url='/')
 def cancle_watch_student(request, url_number):
     current_user = request.user
     student = Student.objects(url_number=url_number).get()
-    if S_S_Card.objects(user=current_user):
-        sc = S_S_Card.objects(user=current_user).get()
-    else:
-        sc = S_S_Card(user=current_user)
-    
-    if sc.cancle_watched_students(student):
-        
-        return HttpResponse('success')
-    else:
-        
-        return HttpResponse('fail')
+    S_S_Card.objects(user_owner=current_user, user_watched=student).delete()
+    return HttpResponse('success')
 
 
 
