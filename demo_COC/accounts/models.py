@@ -4,6 +4,7 @@ from mongoengine import fields, EmbeddedDocument
 
 
 
+
 class Public_Profile(EmbeddedDocument):
     realname = fields.StringField()
     face = fields.StringField()
@@ -15,6 +16,7 @@ class Private_Profile(EmbeddedDocument):
     phone_number = fields.StringField()
     major = fields.StringField()
     MBTI = fields.StringField()
+
 
 class Broadcast(EmbeddedDocument):
     object = fields.GenericReferenceField()
