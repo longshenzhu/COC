@@ -16,5 +16,6 @@ urlpatterns = patterns('accounts.views',
     url(r'^people/(\d+)/group/$', 'visit_people_group'),
     url(r'^people/(\d+)/add_watch_student/$', 'add_watch_student'),
     url(r'^people/(\d+)/cancle_watch_student/$', 'cancle_watch_student'),
+    #url(r'^find/',''),
 )
 

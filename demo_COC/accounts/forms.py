@@ -1,7 +1,5 @@
 # -*- coding: UTF-8 -*-
 from django import forms
-from django.forms.util import ErrorList
-from django.http import HttpRequest
 from accounts.models import Student
 
 
@@ -12,6 +10,13 @@ class AccountsSignupForm(forms.Form):
     
     gender = forms.CharField()
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            Student.objects.get(email=email)
+        except Student.DoesNotExist:
+            return email
+        raise forms.ValidationError("此邮箱已经注册")
     
         
      

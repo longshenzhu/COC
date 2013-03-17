@@ -9,14 +9,15 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import *
 from forms import CreatGroupForm,ModifyGroupForm
 from models import Group
-from forum.models import Topic, Post
-from forum.forms import NewTopicForm, NewPostForm
+from reply.models import Reply
+from reply.forms import NewReplyForm
+from topic.models import Topic
+from topic.forms import NewTopicForm
 from accounts.models import S_G_Card
 from django.template import RequestContext
 from mongoengine.django.sessions import MongoSession
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
 
 def creat_group(request):
     if request.method == "POST":
@@ -108,23 +109,23 @@ def showtopic(request, gurl_number, turl_number):
     topic.clicks += 1
     topic.save()
     if request.method == 'POST':
-        form = NewPostForm(request.POST)
+        form = NewReplyForm(request.POST)
         if form.is_valid():
             content = form.cleaned_data['content']
-            post = Post(content=content)
-            post.author = request.user
-            post.creat_time = datetime.datetime.now()
-            post.floor = Post.objects(topic=topic).count() + 1
-            post.topic = topic
-            post.is_active = True
-            post.save()
+            reply = Reply(content=content)
+            sgcard = S_G_Card.objects(user=request.user, group=group).get()
+            reply.author = sgcard
+            reply.creat_time = datetime.datetime.now()
+            reply.target = topic
+            reply.is_active = True
+            reply.save()
             topic.update_author = request.user
             topic.update_time = datetime.datetime.now()
             topic.save()
             return HttpResponseRedirect('/group/' + str(gurl_number) + '/topic/' + str(turl_number) + '/')
         
     else:
-        form = NewPostForm()
+        form = NewReplyForm()
         return render_to_response('group/group_topic.html', {'group':group, 'current_user':request.user, 'form':form, 'topic':topic, 'STATIC_URL':STATIC_URL}, context_instance=RequestContext(request))
 
     
