@@ -22,20 +22,20 @@
 <div class="row-fluid" id="broadcast_list">
 	
 	<h4>友邻广播</h4>
-	{%if current_user.feeds%}
+	{%if current_user.allbroadcast%}
 	
-		{%for feed in current_user.feeds reversed%}
+		{%for broadcast in current_user.allbroadcast reversed%}
 		<div class="media">
 			<div class="span2">
 				<div class="span8">
-					<a class="pull-left" href="/people/{{current_user.url_number}}"><img class="img-polaroid" src="{{current_user.public_profile.face}}"></a>
+					<a class="pull-left" href="/people/{{broadcast.object.user.url_number}}"><img class="img-polaroid" src="{{broadcast.object.user.public_profile.face}}"></a>
 				</div>
 			</div>
 			<div class="broadcast right span10">
 				<div class="arrow"></div>
-				<h3 class="popover-title">{{current_user.public_profile.realname}}<span class="muted pull-right"><small>{{feed.creat_time|timesince}}前</small></span></h3>
+				<h3 class="popover-title">{{broadcast.object.user.public_profile.realname}}<span class="muted pull-right"><small>{{broadcast.object.creat_time|timesince}}前</small></span></h3>
 				
-				<div class="popover-content">{{feed.content}}</div>
+				<div class="popover-content">{{broadcast.object.description}}</div>
 			</div>
 		</div>
 		{%endfor%}
@@ -77,9 +77,9 @@
 		<p align="left" style="color: green">
 			关注的人...
 		</p>
-		{%if current_user.get_sscard.get.watched_students%}
+		{%if current_user.get_watchpeople%}
 		<ul class="thumbnails">
-			{%for wstudent in current_user.get_sscard.get.watched_students%}
+			{%for wstudent in current_user.get_watchpeople%}
 				{%if forloop.counter <= 4%}
 			<li class="span3">
 				<a href="/people/{{wstudent.url_number}}/"><img src="{{wstudent.public_profile.face}}" class="img-polaroid span12"></a>
@@ -88,7 +88,7 @@
 			{%endfor%}
 		</ul>
 		<ul class="thumbnails">
-			{%for wstudent in current_user.get_sscard.get.watched_students%}
+			{%for wstudent in current_user.get_watchpeople%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li class="span3">
 				<a href="/people/{{wstudent.url_number}}/"><img src="{{wstudent.public_profile.face}}" class="img-polaroid span12"></a>
@@ -96,11 +96,7 @@
 				{%endif%}
 			{%endfor%}
 		</ul>
-		{{current_user.get_sscard}}<br />
-		{{current_user.get_sscard.get}}<br />
-		{{current_user.get_sscard.get.watched_students}}<br />
-		{{current_user.get_sgcard}}
-		{%if current_user.get_sscard.get.watched_students.count > 8%}
+		{%if current_user.get_watchpeople > 8%}
 		<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
 		{%endif%}
 		{%else%}
@@ -114,26 +110,26 @@
 		<p align="left" style="color: green">
 			加入的小队...
 		</p>
-		{%if current_user.get_sgcard%}
+		{%if current_user.get_group_active%}
 		<ul class="thumbnails">
-			{%for sgcard in current_user.get_sgcard%}
+			{%for group in current_user.get_group_active%}
 				{%if forloop.counter <= 4%}
 			<li class="span3">
-				<a href="/group/{{sgcard.group.url_number}}/"><img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
+				<a href="/group/{{group.url_number}}/"><img src="{{group.logo}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
 		</ul>
 		<ul class="thumbnails">
-			{%for sgcard in current_user.get_sgcard%}
+			{%for group in current_user.get_group_active%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li class="span3">
-				<a href="/group/{{sgcard.group.url_number}}/"><img src="{{sgcard.group.logo}}" class="img-polaroid span12"></a>
+				<a href="/group/{{group.url_number}}/"><img src="{{group.logo}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
 		</ul>
-		{%if current_user.get_sgcard.count > 8%}
+		{%if current_user.get_group_active.count > 8%}
 		<a class="pull-right" href="/people/{{current_user.url_number}}/group/" style="color: green">>更多</a>
 		{%endif%}
 		{%else%}
@@ -147,9 +143,9 @@
 		<p align="left" style="color: green">
 			关注的社团...
 		</p>
-		{%if current_user.corporation_list%}
+		{%if current_user.get_corporation_active%}
 		<ul class="thumbnails">
-			{%for corporation in current_user.corporation_list%}
+			{%for corporation in current_user.get_corporation_active%}
 				{%if forloop.counter <= 4%}
 					<li class="span3">
 						<a href="/group/{{corporation.url_number}}/"><img src="{{MEDIA_URL}}{{corporation.logo}}" class="img-polaroid span12"></a>
@@ -158,7 +154,7 @@
 			{%endfor%}
 		</ul>
 		<ul class="thumbnails">
-			{%for corporation in current_user.corporation_list%}
+			{%for corporation in current_user.get_corporation_active%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 					<li class="span3">
 						<a href="/group/{{corporation.url_number}}/"><img src="{{MEDIA_URL}}{{corporation.logo}}" class="img-polaroid span12"></a>
@@ -166,7 +162,7 @@
 				{%endif%}
 			{%endfor%}
 		</ul>
-		{%if current_user.corporation_list.count > 8%}
+		{%if current_user.get_corporation_active.count > 8%}
 		<a class="pull-right" href="/people/{{current_user.url_number}}/corporation/" style="color: green">>更多</a>
 		{%endif%}
 		{%else%}

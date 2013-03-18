@@ -12,9 +12,9 @@
 </li>
 {%endblock%}
 {%block content%}
-{%if student.feeds%}
+{%if student.mybroadcast%}
 <div class="media row-fluid">
-	{%for feed in student.feeds%}
+	{%for broadcast in student.mybroadcast reversed%}
 	<div class="media">
 		<div class="span2">
 			<div class="span8">
@@ -25,10 +25,10 @@
 			<div class="arrow"></div>
 			<div>
 				<h3  class="popover-title" href="/people/{{student.url_number}}/">{{student.public_profile.realname}}
-				<span class="muted pull-right"><small>{{feed.creat_time|date:"Y-m-d H:i:s"}}</small></span>
+				<span class="muted pull-right"><small>{{broadcast.object.creat_time|date:"Y-m-d H:i:s"}}</small></span>
 				</h3>
 				<div class="popover-content">
-					<p>{{feed.content}}</p>
+					<p>{{broadcast.object.description}}</p>
 				</div>	
 			</div>
 		</div>	

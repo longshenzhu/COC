@@ -11,20 +11,21 @@
 </li>
 {%endblock%}
 {%block content%}
-{%if student.get_sgcard%}
-<ul class="thumbnails row-fluid">
-	{%for sgcard in student.get_sgcard%}
-	<li class="span4">
-		<div class="span6">
-		<a class="pull-left" href="/group/{{sgcard.group.url_number}}/"> <img class="img-polaroid span10" src="{{sgcard.group.logo}}"></a>
-		</div>
-		<div class="media-body">
-			<h4 class="media-heading">{{sgcard.group.name}}</h4>
-			<p>{{sgcard.group.get_user_list.count}}个成员</p>
-		</div>
-	</li>
-	{%endfor%}
-</ul>
+{%if student.get_group_active%}
+		<ul class="span11 offset1">
+			{%for group in student.get_group_active%}
+			<div></div>
+			<li class="span3 thumbnail">
+				<div class="span6">
+				<a class="pull-left" href="/group/{{group.url_number}}/"> <img class="img-polaroid span10" src="{{group.logo}}"></a>
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">{{group.name}}</h4>
+					<p>{{group.get_user_active.count}}个成员</p>
+				</div>
+			</li>
+			{%endfor%}
+		</ul>
 {%else%}
 <h2>他还没有加入小组</h2>
 {%endif%}

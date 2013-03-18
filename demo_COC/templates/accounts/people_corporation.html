@@ -11,9 +11,9 @@
 </li>
 {%endblock%}
 {%block content%}
-{%if student.corporationlist%}
+{%if student.get_corporation_active%}
 <div class="media">
-	{%for corporation in sutdent.corporationlist%}
+	{%for corporation in sutdent.get_corporation_active%}
 	<div class="span6 media">
 		<hr>
 		<a class="pull-left span1" href="http://{{host}}/corporation/{{corporation.url_number}}/"><img class="img-rounded face" src="{{MEDIA_URL}}img/corporation/{{corporation.url_number}}.jpg"></a>

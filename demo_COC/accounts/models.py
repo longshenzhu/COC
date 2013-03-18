@@ -34,14 +34,13 @@ class Student(User):
     
     
     
-    
     def get_fans(self):
         from relations.models import S_S_Card
         return S_S_Card.objects(target=self).scalar('user')
     
     def get_watchpeople(self):
         from relations.models import S_S_Card
-        return S_S_Card.objects(target=self).scalar('target')
+        return S_S_Card.objects(user=self).scalar('target')
     
     
     #############################################################对关系卡 的操作#########################################################
@@ -142,6 +141,11 @@ class Student(User):
 
     
     ###################################################对Group Topic的操作
+    def get_topic_group_active(self):#我关注的小组的话题
+        from topic.models import Topic
+        from relations.models import S_G_Card
+        return Topic.objects(creator__in=S_G_Card.objects(group__in=self.get_group_active()), is_active=True)
+    
     def get_topic_group_creat_active(self):#我创建的小组话题(active)
         from topic.models import Topic
         return Topic.objects(creator__in=self.get_sgcard_all(), is_active=True)
@@ -152,16 +156,15 @@ class Student(User):
 
     def get_topic_group_reply_active(self):#我回复的小组话题(active)
         from reply.models import Reply
-        from topic.models import Topic
-        return Reply.objects(creator__in=self.get_sgcard_all(), is_active=True).distinct('target').objects(_cls=Topic, is_active=True)
-
-    def get_topic_group_reply_inactive(self):#我回复的小组话题(active)
-        from reply.models import Reply
-        from topic.models import Topic
-        return Reply.objects(creator__in=self.get_sgcard_all(), is_active=True).distinct('target').objects(_cls=Topic, is_active=False)
+        return Reply.objects(creator__in=self.get_sgcard_all(), is_active=True).distinct('target')
 
 
     ###################################################对Corporation Topic的操作
+    def get_topic_corporation_active(self):#我关注的小组的话题
+        from topic.models import Topic
+        from relations.models import S_C_Card
+        return Topic.objects(creator__in=S_C_Card.objects(corporation__in=self.get_corporation_active()), is_active=True)
+    
     def get_topic_corporation_creat_active(self):
         from topic.models import Topic
         return Topic.objects(creator__in=self.get_sccard_all(), is_active=True)
@@ -172,15 +175,7 @@ class Student(User):
 
     def get_topic_corporation_reply_active(self):
         from reply.models import Reply
-        from topic.models import Topic
-        return Reply.objects(creator__in=self.get_sccard_all(), is_active=True).distinct('target').objects(_cls=Topic, is_active=True)
-
-    def get_topic_corporation_reply_inactive(self):
-        from reply.models import Reply
-        from topic.models import Topic
-        return Reply.objects(creator__in=self.get_sccard_all(), is_active=True).distinct('target').objects(_cls=Topic, is_active=False)
-
-
+        return Reply.objects(creator__in=self.get_sccard_all(), is_active=True).distinct('target')
 
     #############################################################对Activity的操作#########################################################
 
@@ -196,14 +191,7 @@ class Student(User):
     def get_activity_corporation_reply_active(self):
         from reply.models import Reply
         from activity.models import Activity
-        return Reply.objects(creator__in=self.get_sccard_all(), is_active=True).distinct('target').objects(_cls=Activity, is_active=True)
-
-    def get_activity_corporation_reply_inactive(self):
-        from reply.models import Reply
-        from activity.models import Activity
-        return Reply.objects(creator__in=self.get_sccard_all(), is_active=True).distinct('target').objects(_cls=Activity, is_active=False)
-
-
+        return Reply.objects(creator__in=self.get_sccard_all(), is_active=True).distinct('target')
 
     #############################################################对Reply的操作#########################################################
 
@@ -218,13 +206,7 @@ class Student(User):
 
     def get_reply_group_reply_active(self):
         from reply.models import Reply
-        return Reply.objects(creator__in=self.get_sgcard_all(), is_active=True).distinct('target').objects(_cls=Reply, is_active=True)
-
-    def get_reply_group_reply_inactive(self):
-        from reply.models import Reply
-        return Reply.objects(creator__in=self.get_sgcard_all(), is_active=True).distinct('target').objects(_cls=Reply, is_active=False)
-
-
+        return Reply.objects(creator__in=self.get_sgcard_all(), is_active=True).distinct('target')
 
     ###################################################对Corporation Reply的操作
     def get_reply_corporation_creat_active(self):
@@ -237,14 +219,7 @@ class Student(User):
 
     def get_reply_corporation_reply_active(self):
         from reply.models import Reply
-        return Reply.objects(creator__in=self.get_sccard_all(), is_active=True).distinct('target').objects(_cls=Reply, is_active=True)
-
-    def get_reply_corporation_reply_inactive(self):
-        from reply.models import Reply
-        return Reply.objects(creator__in=self.get_sccard_all(), is_active=True).distinct('target').objects(_cls=Reply, is_active=False)
-
-
-
+        return Reply.objects(creator__in=self.get_sccard_all(), is_active=True).distinct('target')
 
 
 
@@ -268,7 +243,8 @@ class Student(User):
         from activity.models import Activity
         broadcast = Broadcast(object=document, is_readed=False)
         if sender == S_C_Card or sender == S_G_Card:
-            document.user.get_fans().update(push__allbroadcast=broadcast)
+            for user in document.user.get_fans():
+                user.update(push__allbroadcast=broadcast)
         elif sender == Activity:
             document.creator.corporation.who_watches.update(push__allbroadcast=broadcast)
             

@@ -13,7 +13,7 @@ from reply.models import Reply
 from reply.forms import NewReplyForm
 from topic.models import Topic
 from topic.forms import NewTopicForm
-from accounts.models import S_G_Card
+from relations.models import S_G_Card
 from django.template import RequestContext
 from mongoengine.django.sessions import MongoSession
 from django.contrib.auth.decorators import login_required
@@ -114,7 +114,7 @@ def showtopic(request, gurl_number, turl_number):
             content = form.cleaned_data['content']
             reply = Reply(content=content)
             sgcard = S_G_Card.objects(user=request.user, group=group).get()
-            reply.author = sgcard
+            reply.creator = sgcard
             reply.creat_time = datetime.datetime.now()
             reply.target = topic
             reply.is_active = True

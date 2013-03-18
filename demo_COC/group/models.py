@@ -30,7 +30,7 @@ class Group(Document):
         return S_G_Card.objects(group=self, is_active=True, is_admin=True)
     
     def get_sgcard_not_admin(self):
-        from accounts.models import S_G_Card
+        from relations.models import S_G_Card
         return S_G_Card.objects(group=self, is_active=True, is_admin=False)
     
     

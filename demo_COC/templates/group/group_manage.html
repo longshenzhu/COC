@@ -6,7 +6,7 @@
 	{%block tab_nav%}
 	{%endblock%}
 </ul>
-{%if current_user in group.get_admin_list%}
+{%if current_user in group.get_user_admin%}
 {%block manage_content%}
 
 {%endblock%}
