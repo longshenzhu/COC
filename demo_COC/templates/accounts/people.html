@@ -24,7 +24,7 @@
 					{%ifnotequal student current_user%}
 					&nbsp;
 					{%endifnotequal%}
-					{%if student in current_user.get_sscard.get.watched_students%}
+					{%if student in current_user.get_watchpeople%}
 
 					<button class="btn btn-block btn-danger" id="cancle_watch">
 						取消关注

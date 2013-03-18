@@ -33,8 +33,6 @@ def indexsignup(request):
         student.public_profile = public_profile
         
         student.save()
-        sscard = S_S_Card(user=student)
-        sscard.save()
         user = authenticate(username=email, password=password)
         request.session.set_expiry(0)
         if user is not None and user.is_active:
@@ -207,7 +205,7 @@ def redirect_to_feeds(request, url_number):
 def add_watch_student(request, url_number):
     current_user = request.user
     student = Student.objects(url_number=url_number).get()
-    sscard = S_S_Card(user_owner=current_user, user_watched=student)
+    sscard = S_S_Card(user=current_user, target=student)
     sscard.save()
     return HttpResponse('success')
 
@@ -215,7 +213,7 @@ def add_watch_student(request, url_number):
 def cancle_watch_student(request, url_number):
     current_user = request.user
     student = Student.objects(url_number=url_number).get()
-    S_S_Card.objects(user_owner=current_user, user_watched=student).delete()
+    S_S_Card.objects(user=current_user, target=student).delete()
     return HttpResponse('success')
 
 

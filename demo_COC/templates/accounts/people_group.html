@@ -11,16 +11,16 @@
 </li>
 {%endblock%}
 {%block content%}
-{%if student.get_sgcard_active%}
+{%if student.get_group_active%}
 <ul class="thumbnails">
-	{%for sgcard in student.get_sgcard_active%}
+	{%for group in student.get_group_active%}
 	<li class="span4 {%cycle 'removemarginleft' '' ''%}">
 		<div class="span6">
-		<a class="" href="/group/{{sgcard.group.url_number}}/"> <img class="img-polaroid span10" src="{{sgcard.group.logo}}"></a>
+		<a class="" href="/group/{{group.url_number}}/"> <img class="img-polaroid span10" src="{{group.logo}}"></a>
 		</div>
 		<div class="media-body">
-			<h4 class="media-heading">{{sgcard.group.name}}</h4>
-			<p>{{sgcard.group.get_user_active.count}}个成员</p>
+			<h4 class="media-heading">{{group.name}}</h4>
+			<p>{{group.get_user_active.count}}个成员</p>
 		</div>
 	</li>
 	{%endfor%}
