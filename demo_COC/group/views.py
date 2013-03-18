@@ -13,7 +13,7 @@ from reply.models import Reply
 from reply.forms import NewReplyForm
 from topic.models import Topic
 from topic.forms import NewTopicForm
-from accounts.models import S_G_Card
+from relations.models import S_G_Card
 from django.template import RequestContext
 from mongoengine.django.sessions import MongoSession
 from django.contrib.auth.decorators import login_required

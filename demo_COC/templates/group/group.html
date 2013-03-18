@@ -21,25 +21,6 @@
 	创建于{{group.birthday|date:"Y-m-d H:i:s"}}
 </div>
 <hr>
-<<<<<<< HEAD
-<div class="row">
-<div class="span2">
-	<h4>最近小组话题</h4>
-</div>
-
-<div id="topic_outer">
-	{%if current_user in group.get_user_active%}
-	<div class="offset5" id="topic_button">
-		<button class="btn btn-link span2" data-toggle="modal" data-target="#myModal">
-			>>>发布话题
-		</button>
-	</div>
-	{%endif%}
-</div>
-</div>
-<hr class="span7">
-{%if group.get_topic_active%}
-=======
 <div class="row-fluid">
 	<div class="span4">
 		<h4 class="pull-left">最近小组话题</h4>
@@ -56,7 +37,6 @@
 </div>
 <hr class="row-fluid">
 {%if group.get_topic_list%}
->>>>>>> cc1c915d462a6be15c55d700239eaf347396cd0e
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -66,14 +46,9 @@
 			<td>作者</td>
 		</tr>
 	</thead>
-<<<<<<< HEAD
-	<tbody>
-		{%for topic in group.get_topic_active%}
-=======
 
 	<tbody>
 		{%for topic in group.get_topic_list%}
->>>>>>> cc1c915d462a6be15c55d700239eaf347396cd0e
 		<tr>
 			<td><a href="/group/{{group.url_number}}/topic/{{topic.url_number}}/">{{topic.title}}</a></td>
 			<td>{{topic.replys}}/{{topic.clicks}}</td>
@@ -82,32 +57,14 @@
 		</tr>
 		{%endfor%}
 	</tbody>
-<<<<<<< HEAD
-
-</table>
-{%else%}
-<div class="span8">
-	<h1>没有话题</h1>
-=======
 </table>
 {%else%}
 <div class="row-fluid">
 	<h3>没有话题</h3>
->>>>>>> cc1c915d462a6be15c55d700239eaf347396cd0e
 </div>
 {%endif%}
 
 <div id="inactive_topic">
-<<<<<<< HEAD
-{%if current_user in group.get_user_admin%}
-<hr class="span7">
-	<div class="row">
-		<div class="span2">
-			<h4>话题回收站</h4>
-		</div>
-		<div>
-			<div class="offset5">
-=======
 	{%if current_user in group.get_admin_list%}
 	<hr class="row-fluid">
 	<div class="row-fluid">
@@ -116,7 +73,6 @@
 		</div>
 		<div>
 			<div class="pull-right">
->>>>>>> cc1c915d462a6be15c55d700239eaf347396cd0e
 				<button class="btn btn-info">
 					全部恢复
 				</button>
@@ -126,15 +82,9 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
-	<hr class="span7">
-
-	{%if group.get_topic_inactive%}
-=======
 	<hr class="row-fluid">
 
 	{%if group.get_inactive_topic_list%}
->>>>>>> cc1c915d462a6be15c55d700239eaf347396cd0e
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -144,15 +94,9 @@
 				<td>作者</td>
 			</tr>
 		</thead>
-<<<<<<< HEAD
-	
-		<tbody>
-			{%for topic in group.get_topic_inactive%}
-=======
 
 		<tbody>
 			{%for topic in group.get_inactive_topic_list%}
->>>>>>> cc1c915d462a6be15c55d700239eaf347396cd0e
 			<tr>
 				<td><a href="/group/{{group.url_number}}/topic/{{topic.url_number}}/">{{topic.title}}</a></td>
 				<td>{{topic.replys}}/{{topic.clicks}}</td>
@@ -161,17 +105,6 @@
 			</tr>
 			{%endfor%}
 		</tbody>
-<<<<<<< HEAD
-	
-	</table>
-	{%else%}
-	<div class="span2">
-		<h1>没有话题</h1>
-	</div>
-	{%endif%}
-{%endif%}
-=======
-
 	</table>
 	{%else%}
 	<div class="row-fluid">
@@ -179,7 +112,6 @@
 	</div>
 	{%endif%}
 	{%endif%}
->>>>>>> cc1c915d462a6be15c55d700239eaf347396cd0e
 </div>
 {%endblock%}
 
@@ -203,7 +135,3 @@
 	</div>
 </div>
 {%endblock%}
-<<<<<<< HEAD
-=======
-
->>>>>>> cc1c915d462a6be15c55d700239eaf347396cd0e

@@ -268,7 +268,8 @@ class Student(User):
         from activity.models import Activity
         broadcast = Broadcast(object=document, is_readed=False)
         if sender == S_C_Card or sender == S_G_Card:
-            document.user.get_fans().update(push__allbroadcast=broadcast)
+            for user in document.user.get_fans():
+                user.update(push__allbroadcast=broadcast)
         elif sender == Activity:
             document.creator.corporation.who_watches.update(push__allbroadcast=broadcast)
             
