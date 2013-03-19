@@ -28,6 +28,7 @@ class Activity(Document):
     who_entered = fields.ListField(fields.ReferenceField(Student, reverse_delete_rule=PULL))  # 参加这个活动的人
     total_students = fields.IntField()  # 参加活动总人
     clicks = fields.IntField()  # 点击数
+    is_active = fields.BooleanField()
     
     def description(self):
         return self.creator.corporation.name + "发起了" + self.name

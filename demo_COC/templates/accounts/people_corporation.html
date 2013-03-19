@@ -12,18 +12,20 @@
 {%endblock%}
 {%block content%}
 {%if student.get_corporation_active%}
-<div class="media">
-	{%for corporation in sutdent.get_corporation_active%}
-	<div class="span6 media">
-		<hr>
-		<a class="pull-left span1" href="http://{{host}}/corporation/{{corporation.url_number}}/"><img class="img-rounded face" src="{{MEDIA_URL}}img/corporation/{{corporation.url_number}}.jpg"></a>
-		<div class="media-body">
-			<h4 class="media-heading">{{corporation.name}}</h4>
-			创建于{{corporation.birthyear}}
-		</div>
-	</div>
-	{%endfor%}
-</div>
+		<ul class="span11 offset1">
+			{%for corporation in student.get_corporation_active%}
+			<div></div>
+			<li class="span3 thumbnail">
+				<div class="span6">
+				<a class="pull-left" href="/corporation/{{corporation.url_number}}/"><img class="img-polaroid span10" src="{{corporation.logo}}"></a>
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">{{corporation.name}}</h4>
+					<p>{{corporation.get_user_active.count}}个成员</p>
+				</div>
+			</li>
+			{%endfor%}
+		</ul>
 {%else%}
 <h2>他还没有加入社团</h2>
 {%endif%}

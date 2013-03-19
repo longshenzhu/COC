@@ -17,7 +17,7 @@ from relations.models import S_C_Card
 from django.template import RequestContext
 from mongoengine.django.sessions import MongoSession
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 
 def creat_corporation(request):
     if request.method == "POST":
@@ -25,7 +25,9 @@ def creat_corporation(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             introduction = form.cleaned_data['introduction']
-            corporation = Corporation(name=name, introduction=introduction, logo=STATIC_URL + 'img/face.png')
+            birthyear = form.cleaned_data['birthyear']
+            school = form.cleaned_data['school']
+            corporation = Corporation(name=name, introduction=introduction, school=school, birthyear=birthyear, logo=STATIC_URL + 'img/face.png')
             url_number = len(Corporation.objects) + 1
             corporation.url_number = url_number
             corporation.creat_time = datetime.datetime.now()
@@ -57,39 +59,15 @@ def creat_corporation(request):
             sccard.save()
             return HttpResponseRedirect('/corporation/' + str(url_number) + '/')
         
+        else:
+            return HttpResponseNotFound("出错了。。。。。")
+        
     else:
         form = CreatCorporationForm()
         return render_to_response('corporation/creat_corporation.html', {'form':form, 'STATIC_URL':STATIC_URL, 'current_user':request.user}, context_instance=RequestContext(request))
                 
                  
-def corporation(request, gurl_number):
-    corporation = Corporation.objects(url_number=gurl_number).get()
-    if request.method == "POST":
-        form = NewTopicForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data['title']
-            content = form.cleaned_data['content']
-            topic = Topic(title=title)
-            turl_number = len(Topic.objects) + 1
-            topic.url_number = turl_number
-            topic.content = content
-            topic.creat_time = datetime.datetime.now()
-            topic.is_active = True
-            topic.is_locked = False
-            topic.is_top = False
-            topic.clicks = 0
-            topic.update_time = datetime.datetime.now()
-            topic.update_author = request.user
-            sccard = S_C_Card.objects(user=request.user, corporation=corporation).get()
-            topic.creator = sccard
-            topic.save()
-            return HttpResponseRedirect('/corporation/' + str(gurl_number) + '/topic/' + str(turl_number) + '/')
-            
-            
-    else:
-        form = NewTopicForm()
-        return render_to_response('corporation/corporation.html', {'form':form, 'corporation':corporation, 'STATIC_URL':STATIC_URL, 'current_user':request.user}, context_instance=RequestContext(request))
-        
+
     
 def entercorporation(request, url_number):
     corporation = Corporation.objects(url_number=url_number).get()
@@ -125,7 +103,7 @@ def showtopic(request, gurl_number, turl_number):
         
     else:
         form = NewReplyForm()
-        return render_to_response('corporation/corporation_topic.html', {'corporation':corporation, 'current_user':request.user, 'form':form, 'topic':topic, 'STATIC_URL':STATIC_URL}, context_instance=RequestContext(request))
+        return render_to_response('corporation/topic_corporation.html', {'corporation':corporation, 'current_user':request.user, 'form':form, 'topic':topic, 'STATIC_URL':STATIC_URL}, context_instance=RequestContext(request))
 
     
 def my_corporations_creat(request):
@@ -204,6 +182,52 @@ def kick_out(request,corporation_url_number,user_url_number):
     corporation = Corporation.objects(url_number=corporation_url_number).get()
     corporation.kick_out(user_url_number)
     return HttpResponse('success')
+    
+@login_required(login_url='/')
+def redirect_to_topics(request, url_number):
+    return HttpResponseRedirect('/corporation/' + str(url_number) + '/topics/')
+
+def visit_corporation_topics(request, gurl_number):
+    corporation = Corporation.objects(url_number=gurl_number).get()
+    if request.method == "POST":
+        form = NewTopicForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+            topic = Topic(title=title)
+            turl_number = len(Topic.objects) + 1
+            topic.url_number = turl_number
+            topic.content = content
+            topic.creat_time = datetime.datetime.now()
+            topic.is_active = True
+            topic.is_locked = False
+            topic.is_top = False
+            topic.clicks = 0
+            topic.update_time = datetime.datetime.now()
+            topic.update_author = request.user
+            sccard = S_C_Card.objects(user=request.user, corporation=corporation).get()
+            topic.creator = sccard
+            topic.save()
+            return HttpResponseRedirect('/corporation/' + str(gurl_number) + '/topic/' + str(turl_number) + '/')
+            
+            
+    else:
+        form = NewTopicForm()
+        return render_to_response('corporation/corporation_topics.html', {'form':form, 'corporation':corporation, 'STATIC_URL':STATIC_URL, 'current_user':request.user}, context_instance=RequestContext(request))
+        
+def visit_corporation_structure(request, url_number):
+    corporation = Corporation.objects(url_number=url_number).get()
+    return render_to_response('corporation/corporation_structure.html', {'current_user':request.user, 'url_number':url_number, 'corporation':corporation, 'STATIC_URL':STATIC_URL}, context_instance=RequestContext(request))
+
+def visit_corporation_activity(request, url_number):
+    corporation = Corporation.objects(url_number=url_number).get()
+    return render_to_response('corporation/corporation_activity.html', {'current_user':request.user, 'url_number':url_number, 'corporation':corporation, 'STATIC_URL':STATIC_URL}, context_instance=RequestContext(request))
+  
+    
+    
+    
+    
+    
     
     
     

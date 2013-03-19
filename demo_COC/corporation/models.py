@@ -16,7 +16,7 @@ class Corporation(Document):
     creat_time = fields.DateTimeField()
     departments = fields.ListField(fields.EmbeddedDocumentField(Department))#部门
     introduction = fields.StringField(required=True, verbose_name=u'社团简介')
-    tags = fields.ListField(fields.StringField())  # 社团标签
+    #tags = fields.ListField(fields.StringField())  # 社团标签
     school = fields.StringField()#学校
     who_watches = fields.ListField(fields.ReferenceField(Student, reverse_delete_rule=PULL))#关注它的人
     
@@ -151,6 +151,15 @@ class Corporation(Document):
         from topic.models import Topic
         return Topic.objects(creator__in=self.get_sccard_all(), is_active=True, is_locked=False)
     
+    
+    #查询activity
+    def get_activity_active(self):
+        from activity.models import Activity
+        return Activity.objects(creator__in=self.get_sccard_active(), is_active=True)
+    
+    def get_activity_inactive(self):
+        from activity.models import Activity
+        return Activity.objects(creator__in=self.get_sccard_active(), is_active=False)
     
     
     

@@ -1,8 +1,9 @@
-{%extends "group/group_base.html"%}
+{%extends "corporation/corporation_base.html"%}
 {%block othercss%}
 <link href="{{STATIC_URL}}css/bootstrap-fileupload.css" rel="stylesheet"/>
 {%endblock%}
 {%block container%}
+<div class="container">
 <div class="span9 offset1 well">
 	<form class="form-horizontal" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
@@ -12,7 +13,7 @@
 				<div class="fileupload fileupload-new" data-provides="fileupload">
 					<div class="fileupload-preview thumbnail span3" style="height: 260px"></div>
 					<div class="span3">
-						<span class="btn btn-file"><span class="fileupload-new">选择图片</span><span class="fileupload-exists">换一张</span>
+						<span class="btn btn-file"><span class="fileupload-new">选择社团Logo</span><span class="fileupload-exists">换一张</span>
 							<input type="file" name="logo" id="id_logo"/>
 						</span>
 						<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">删除</a>
@@ -23,17 +24,30 @@
 				<div class="control-group">
 					<label class="control-label" for="id_name">社团名称</label>
 					<div class="controls">
-						<input type="text" id="id_name" name="name" placeholder="请输入小组名称"/>
+						<input type="text" id="id_name" name="name" placeholder="请输入社团名称"/>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="id_birthyear">诞生年份</label>
+					<div class="controls">
+						<input type="text" id="id_birthyear" name="birthyear" placeholder="请输入社团创建年份"/>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="id_school">学校</label>
+					<div class="controls">
+						<input type="text" id="id_school" name="school" placeholder="请输入社团所属学校"/>
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="id_introduction" >社团简介</label>
 					<div class="controls date">
-						<input type="text" id="id_introduction" name="introduction"/>
+						<textarea type="text" id="id_introduction" name="introduction" placeholder="介绍一下你的社团吧"></textarea>
 					</div>
 				</div>
-				
 				
 				<div class="control-group">
 					<div class="controls">
@@ -45,6 +59,7 @@
 			</div>
 		</div>
 	</form>
+</div>
 </div>
 {%endblock%}
 {%block otherscript%}

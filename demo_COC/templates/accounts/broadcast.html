@@ -65,7 +65,7 @@
 	<div class="row-fluid">
 		<h4>&nbsp;</h4>
 		<div class="row-fluid">
-			<a href="/corporation/creat_coporation/" class="btn btn-primary span6">创建社团</a>
+			<a href="/corporation/creat_corporation/" class="btn btn-primary span6">创建社团</a>
 			<a href="/group/creat_group/" class="btn btn-success span6">创建小组</a>
 		</div>
 		
@@ -148,7 +148,7 @@
 			{%for corporation in current_user.get_corporation_active%}
 				{%if forloop.counter <= 4%}
 					<li class="span3">
-						<a href="/group/{{corporation.url_number}}/"><img src="{{MEDIA_URL}}{{corporation.logo}}" class="img-polaroid span12"></a>
+						<a href="/group/{{corporation.url_number}}/"><img src="{{corporation.logo}}" class="img-polaroid span12"></a>
 					</li>
 				{%endif%}
 			{%endfor%}
@@ -157,7 +157,7 @@
 			{%for corporation in current_user.get_corporation_active%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 					<li class="span3">
-						<a href="/group/{{corporation.url_number}}/"><img src="{{MEDIA_URL}}{{corporation.logo}}" class="img-polaroid span12"></a>
+						<a href="/group/{{corporation.url_number}}/"><img src="{{corporation.logo}}" class="img-polaroid span12"></a>
 					</li>
 				{%endif%}
 			{%endfor%}

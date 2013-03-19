@@ -1,0 +1,59 @@
+{%extends "corporation/corporation_base.html"%}
+{%block leftspan6%}
+
+<div class="span7 media">
+	<a class="pull-left" href="/people/{{topic.creator.user.url_number}}/"> <img class="img-polaroid face" src="{{topic.creator.user.public_profile.face}}"> </a>
+	<div class="media-body">
+		<h3 class="media-heading">{{topic.title}}</h3>
+		来自<a href="/people/{{topic.creator.user.url_number}}/">{{topic.creator.user.public_profile.realname}}</a><small class="muted">&nbsp;&nbsp;&nbsp;{{topic.creat_time|date:"Y-m-d H:i:s"}}</small>
+		
+		<p>{{topic.content|linebreaksbr}}</p>
+		
+		<p class="text-right">
+		{%ifequal current_user topic.creator.user%}
+		- <span><a>修改</a></span>
+		{%endifequal%}
+		{%if current_user in corporation.get_user_admin%}
+		 - <span><a>置顶</a></span> - <span><a>禁止回应</a></span> - <span><a>删除</a></span>
+		{%endif%}
+		
+		
+		</p>
+	</div>
+</div>
+
+<div class="span8 media">
+	{%for reply in topic.get_reply%}
+	<div class="span7 media">
+		<hr>
+		<a class="pull-left span1" href="/people/{{reply.creator.user.url_number}}/"> <img class="media-object" src="{{reply.creator.user.public_profile.face}}"> </a>
+		<div class="media-body">
+			<a class="media-heading" href="/people/{{reply.creator.user.url_number}}/">{{reply.creator.user.public_profile.realname}}</a>
+			<span class="muted" style="float: right;height: 16px;"><small>{{reply.creat_time|date:"Y-m-d H:i:s"}}</small></span>
+			<p>{{reply.content|linebreaksbr}}</p>
+		</div>
+	</div>
+	{%endfor%}
+	
+</div>
+<div class="span7">
+	<hr>
+</div>
+
+
+
+<div id="reply" class="span3 offset2">
+{%if current_user in topic.creator.corporation.get_user_active%}
+<form method="post">
+	{% csrf_token %}
+	{{form.as_p}}
+	<button type="submit" class="btn btn-primary">回应</button>
+</form>
+{%else%}
+<p>加入社团才能回应</p>
+{%endif%}
+</div>
+
+
+{%endblock%}
+
