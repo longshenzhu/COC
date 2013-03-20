@@ -65,11 +65,16 @@
 								{%if group.get_user_admin%}
 								<ul class="thumbnails row-fluid">
 									{%for user in group.get_user_admin%}
+									{%if forloop.counter <= 4%}
 									<li class="span3">
 										<a href="/people/{{user.url_number}}/"><img src="{{user.public_profile.face}}" class="img-polaroid span12"></a>
 									</li>
+									{%endif%}
 									{%endfor%}
 								</ul>
+								{%if group.get_user_admin.count > 4%}
+								<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
+								{%endif%}
 								{%else%}
 								<p>
 									无
@@ -86,11 +91,16 @@
 								{%if group.get_user_not_admin%}
 								<ul class="thumbnails">
 									{%for user in group.get_user_not_admin%}
+									{%if forloop.counter <= 4%}
 									<li class="span3">
 										<a href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}" class="img-polaroid span12"></a>
 									</li>
+									{%endif%}
 									{%endfor%}
 								</ul>
+								{%if group.get_user_not_admin.count > 4%}
+								<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
+								{%endif%}
 								{%else%}
 								<p>
 									无

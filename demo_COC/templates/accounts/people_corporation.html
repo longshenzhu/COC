@@ -12,20 +12,19 @@
 {%endblock%}
 {%block content%}
 {%if student.get_corporation_active%}
-		<ul class="span11 offset1">
-			{%for corporation in student.get_corporation_active%}
-			<div></div>
-			<li class="span3 thumbnail">
-				<div class="span6">
-				<a class="pull-left" href="/corporation/{{corporation.url_number}}/"><img class="img-polaroid span10" src="{{corporation.logo}}"></a>
-				</div>
-				<div class="media-body">
-					<h4 class="media-heading">{{corporation.name}}</h4>
-					<p>{{corporation.get_user_active.count}}个成员</p>
-				</div>
-			</li>
-			{%endfor%}
-		</ul>
+<ul class="thumbnails">
+	{%for corporation in student.get_corporation_active%}
+	<li class="span4 {%cycle 'removemarginleft' '' ''%}">
+		<div class="span6">
+		<a class="" href="/corporation/{{corporation.url_number}}/"> <img class="img-polaroid span10" src="{{corporation.logo}}"></a>
+		</div>
+		<div class="media-body">
+			<h4 class="media-heading">{{corporation.name}}</h4>
+			<p>{{corporation.get_user_active.count}}个成员</p>
+		</div>
+	</li>
+	{%endfor%}
+</ul>
 {%else%}
 <h2>他还没有加入社团</h2>
 {%endif%}

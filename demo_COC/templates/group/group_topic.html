@@ -1,8 +1,10 @@
 {%extends "group/group_base.html"%}
 {%block leftspan6%}
 
-<div class="span7 media">
-	<a class="pull-left" href="/people/{{topic.creator.user.url_number}}/"> <img class="img-polaroid face" src="{{topic.creator.user.public_profile.face}}"> </a>
+<div class="row-fluid">
+	<div class="span2">
+		<a class="pull-left" href="/people/{{topic.creator.user.url_number}}/"> <img class="img-polaroid span11" src="{{topic.creator.user.public_profile.face}}"></a>
+	</div>
 	<div class="media-body">
 		<h3 class="media-heading">{{topic.title}}</h3>
 		来自<a href="/people/{{topic.creator.user.url_number}}/">{{topic.creator.user.public_profile.realname}}</a><small class="muted">&nbsp;&nbsp;&nbsp;{{topic.creat_time|date:"Y-m-d H:i:s"}}</small>
@@ -16,44 +18,44 @@
 		{%if current_user in group.get_user_admin%}
 		 - <span><a>置顶</a></span> - <span><a>禁止回应</a></span> - <span><a>删除</a></span>
 		{%endif%}
-		
-		
 		</p>
 	</div>
 </div>
-
-<div class="span8 media">
-	{%for reply in topic.get_reply%}
-	<div class="span7 media">
-		<hr>
-		<a class="pull-left span1" href="/people/{{reply.creator.user.url_number}}/"> <img class="media-object" src="{{reply.creator.user.public_profile.face}}"> </a>
-		<div class="media-body">
+<hr>
+<div class="row-fluid">
+	{%for reply in topic.get_reply%}	
+	<div class="span2">		
+		<a class="" href="/people/{{reply.creator.user.url_number}}/"> <img class="img-polaroid span9 offset2" src="{{reply.creator.user.public_profile.face}}"></a>
+	</div>
+	<div>
+		<div class="span10">
 			<a class="media-heading" href="/people/{{reply.creator.user.url_number}}/">{{reply.creator.user.public_profile.realname}}</a>
-			<span class="muted" style="float: right;height: 16px;"><small>{{reply.creat_time|date:"Y-m-d H:i:s"}}</small></span>
+			<span class="muted pull-right" style="float: right;height: 16px;"><small>{{reply.creat_time|date:"Y-m-d H:i:s"}}</small></span>
 			<p>{{reply.content|linebreaksbr}}</p>
 		</div>
 	</div>
 	{%endfor%}
 	
 </div>
-<div class="span7">
+<div class="row-fluid">
 	<hr>
 </div>
 
 
-
-<div id="reply" class="span3 offset2">
-{%if current_user in topic.creator.group.get_user_active%}
-<form method="post">
-	{% csrf_token %}
-	{{form.as_p}}
-	<button type="submit" class="btn btn-primary">回应</button>
-</form>
-{%else%}
-<p>加入小组才能回应</p>
-{%endif%}
+<div class="row-fluid">
+	<div class="span2"></div>
+	<div id="reply" class="row-fluid">
+	{%if current_user in topic.creator.group.get_user_active%}
+	<form method="post" class="span8">
+		{% csrf_token %}
+		<p><label for="id_content">回应:</label> <textarea id="id_content" rows="10" cols="40" name="content" style="resize:none" class="span10"></textarea></p>
+		<button type="submit" class="btn btn-primary">回应</button>
+	</form>
+	{%else%}
+	<p>加入小组才能回应</p>
+	{%endif%}
+	</div>
 </div>
-
 
 {%endblock%}
 

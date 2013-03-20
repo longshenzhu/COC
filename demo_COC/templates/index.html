@@ -6,73 +6,91 @@
 {%endblock%}
 
 {%block container%}
-<div class="row">
-			<div class="row" style="background-image:url('{{STATIC_URL}}img/background1.jpg');height: 117px; margin-bottom: 50px; padding-top: 150px; padding-left: 350px;">
-				<div style="background-image:url('{{STATIC_URL}}img/landing-tab.png');height: 150px; padding-top: 70px; margin-top:30px;" class="span8">
-					<form method="post" class="row">
+<div class="container-fluid" style="background-image:url('{{STATIC_URL}}img/background1.jpg'); height: 268px;">
+	<div class="row-fluid" style="margin-top: 190px;">
+		<div class="span4 offset4">
+			<div class="row-fluid">
+				<div class="span12 well-new">
+					<form method="post" class="span6">
 						{% csrf_token %}
-						<div class="span3 offset1" style="margin-left: 180px;">
-
-  
-							<div class="row">
-								
-								<div class="span3">
-									邮箱：<input type="text" placeholder="Email address" name="login_email" id="id_login_email"/>
-								</div>
-								<div class="span3">
-									密码：<input type="password" placeholder="Password" name="login_password" id="id_login_password"/>
-								</div>
-							</div>
+						<div class="row-fluid">
+							<input type="text" placeholder="邮箱" name="login_email" id="id_login_email" class="span12"/>
 						</div>
-						<div class="span3">
-							<div class="row">
-							<label class="checkbox span1" style="margin-top: 5px;">
-								<input type="checkbox" value="remember" name="remember_me" id="id_remember_me">
+						<div class="row-fluid">
+							<input type="password" placeholder="密码" name="login_password" id="id_login_password" class="span12"/>
+						</div>
+						<div class="row-fluid">
+							<div class="span4">
+								<input type="checkbox" value="remember" name="remember_me" id="id_remember_me" style="margin-top: 0px">
 								记住我 </input>
-							</label>
-							
-							<button class="btn btn-success span1" type="submit" style="margin-left: 10px;">
-								登录
-							</button>
-							<button class="btn btn-primary span2" data-toggle="modal" type="submit" data-target="#myModal" style="margin-top: 10px;">
-								注册
-							</button>
-							<input name="login" type="hidden" />
+							</div>
+							<div class="span4">
+								<button class="btn btn-primary pull-right" type="submit">
+									登录
+								</button>
+							</div>
+							<div class="span4">
+								<button class="btn btn-success pull-right" data-toggle="modal" type="submit" data-target="#myModal">
+									注册
+								</button>
+								<input name="login" type="hidden" />
 							</div>
 						</div>
 					</form>
+					<div class="span6">
+						<div class="left-new span12">
+							<p>
+								欢迎来到同校网！在这里你可以：
+							</p>
+							<p>
+								+发现校园中丰富的社团活动
+							</p>
+							<p>
+								+结识志趣相投的校内友邻
+							</p>
+							<p>
+								+更加轻松地管理社团
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="carousel slide span10 offset2" id="myCarousel">
-                <div class="carousel-inner" >
-                
-                  <div class="item">
-                   <ul class="">
-                    <img src="{{STATIC_URL}}img/diyiye.png" alt="" width="270" height="250" style="margin-left:40px">
-                    <img alt="" src="{{STATIC_URL}}img/diyiye.png" width="270" height="250" style="margin-left:20px">
-                    <img alt="" src="{{STATIC_URL}}img/diyiye.png" width="270" height="250" style="margin-left:20px">
-                   </ul>
-                  </div>
-                   
-                  <div class="item active">
-                   <ul class="">
-                    <img alt="" src="{{STATIC_URL}}img/diyiye.png" width="270" height="250" style="margin-left:40px">
-                    <img alt="" src="{{STATIC_URL}}img/diyiye.png" width="270" height="250" style="margin-left:20px">
-                    <img alt="" src="{{STATIC_URL}}img/diyiye.png" width="270" height="250" style="margin-left:20px">
-                   </ul>
-                 </div>
-                 
-                  <div class="item">
-                   <ul class="">
-                    <img alt="" src="{{STATIC_URL}}img/diyiye.png" width="270" height="250" style="margin-left:40px">
-                    <img alt="" src="{{STATIC_URL}}img/diyiye.png" width="270" height="250" style="margin-left:20px">
-                    <img alt="" src="{{STATIC_URL}}img/diyiye.png" width="270" height="250" style="margin-left:20px">
-                   </ul>
-                  </div>
-                </div>
-                <a data-slide="prev" href="#myCarousel" class="left carousel-control" style="top: 86px; left: 0px;">‹</a>
-                <a data-slide="next" href="#myCarousel" class="right carousel-control" style="top: 86px; left:956px;">›</a>
-              </div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="slide row-fluid" id="myCarousel">
+		<div class="carousel-inner">
+			<div class="item">
+				<ul class="span12">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+				</ul>
+			</div>
+
+			<div class="item active">
+				<ul class="span12">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+				</ul>
+			</div>
+
+			<div class="item">
+				<ul class="span12">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+					<img alt="" src="{{STATIC_URL}}img/diyiye.png" class="span3">
+				</ul>
+			</div>
+		</div>
+		<a data-slide="prev" href="#myCarousel" class="left carousel-control" style="top: 556px;">‹</a>
+		<a data-slide="next" href="#myCarousel" class="right carousel-control" style="top: 556px;">›</a>
+	</div>
 </div>
 {%endblock%}
 
@@ -117,7 +135,7 @@
 				</div>
 			</div>
 			<div class="control-group">
-				
+
 				<div class="controls">
 					<span style="color: red">*</span>
 					<span>性别：</span>&nbsp;

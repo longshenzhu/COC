@@ -12,14 +12,14 @@
 {%endblock%}
 
 {%block manage_content%}
-<h3>-----小组管理员-----</h3>
+<h4 style="color: green">小组管理员...</h4>
 <hr>
 <div id="admins">
 	{%if group.get_user_admin%}
 	<ul class="thumbnails">
 		{%for user in group.get_user_admin%}
 		<li>
-			<a class="pull-left span1" href="/people/{{user.url_number}}/"> <img class="media-object" src="{{user.public_profile.face}}"> </a>
+			<a class="pull-left span3" href="/people/{{user.url_number}}/"> <img class="media-object" src="{{user.public_profile.face}}"></a>
 			<div class="media-body">
 				<h4 class="media-heading">{{user.public_profile.realname}}</h4>
 				{%if group.get_user_admin.count > 1 and current_user != user%}
@@ -30,18 +30,18 @@
 		{%endfor%}
 	</ul>
 	{%else%}
-	<h2>小组没有管理员。。。那你是怎么进来的！！</h2>
+	<h3>小组没有管理员。。。那你是怎么进来的！！</h3>
 	{%endif%}
 </div>
 <h2>&nbsp;</h2>
-<h3>-----小组成员-----</h3>
+<h4 style="color: green">小组管理员...</h4>
 <hr>
 <div id="members">
 	{%if group.get_user_not_admin%}
 	<ul class="thumbnails">
 		{%for user in group.get_user_not_admin%}
 		<li>
-			<a class="pull-left span1" href="/people/{{user.url_number}}/"> <img class="media-object" src="{{user.public_profile.face}}"> </a>
+			<a class="pull-left span1" href="/people/{{user.url_number}}/"> <img class="media-object" src="{{user.public_profile.face}}"></a>
 			<div class="media-body">
 				<h4 class="media-heading">{{user.public_profile.realname}}</h4>
 				<button class="btn-mini" id="promote_{{user.url_number}}">提升为管理员</button>
@@ -51,7 +51,7 @@
 		{%endfor%}
 	</ul>
 	{%else%}
-	<h2>您的小组还没有成员</h2>
+	<h3>您的小组还没有成员</h3>
 	{%endif%}
 </div>
 {%endblock%}

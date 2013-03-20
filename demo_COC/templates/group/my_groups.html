@@ -58,7 +58,9 @@
 			</p>
 		</div>
 		{%endif%}
-		<a class="pull-right" href="/people/{{current_user.url_number}}/group/" style="color: green">>更多</a>
+		{%if current_user.get_admin_group.count >= 4%}
+		<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
+		{%endif%}
 	</div>
 	<div class="row-fluid">
 		<p align="left" style="color: green">
@@ -90,7 +92,9 @@
 		</p>
 		</div>
 		{%endif%}
-		<a class="pull-right" href="/people/{{current_user.url_number}}/group/" style="color: green">>更多</a>
+		{%if current_user.get_in_group.count >= 4%}
+		<a class="pull-right" href="/people/{{current_user.url_number}}/people/" style="color: green">>更多</a>
+		{%endif%}
 	</div>
 </div>
 {%endblock%}

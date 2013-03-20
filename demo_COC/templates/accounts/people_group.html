@@ -12,20 +12,19 @@
 {%endblock%}
 {%block content%}
 {%if student.get_group_active%}
-		<ul class="span11 offset1">
-			{%for group in student.get_group_active%}
-			<div></div>
-			<li class="span3 thumbnail">
-				<div class="span6">
-				<a class="pull-left" href="/group/{{group.url_number}}/"><img class="img-polaroid span10" src="{{group.logo}}"></a>
-				</div>
-				<div class="media-body">
-					<h4 class="media-heading">{{group.name}}</h4>
-					<p>{{group.get_user_active.count}}个成员</p>
-				</div>
-			</li>
-			{%endfor%}
-		</ul>
+<ul class="thumbnails">
+	{%for group in student.get_group_active%}
+	<li class="span4 {%cycle 'removemarginleft' '' ''%}">
+		<div class="span6">
+		<a class="" href="/group/{{group.url_number}}/"> <img class="img-polaroid span10" src="{{group.logo}}"></a>
+		</div>
+		<div class="media-body">
+			<h4 class="media-heading">{{group.name}}</h4>
+			<p>{{group.get_user_active.count}}个成员</p>
+		</div>
+	</li>
+	{%endfor%}
+</ul>
 {%else%}
 <h2>他还没有加入小组</h2>
 {%endif%}
