@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     # url(r'^accounts/',include('accounts.urls')),
     # url(r'^people/', include('accounts.urls')),
     url(r'^group/', include('group.urls')),
-    # url(r'^corporation/',include('corporation.urls')),
+    url(r'^corporation/',include('corporation.urls')),
     # url(r'^find/'),
     
 

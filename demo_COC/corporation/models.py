@@ -1,12 +1,9 @@
 # -*- coding: UTF-8 -*-
-from mongoengine import Document, fields, PULL, EmbeddedDocument
+from mongoengine import Document, fields, PULL
 from accounts.models import Student
 import datetime
 
 # Create your models here.
-class Department(EmbeddedDocument):
-    name = fields.StringField()
-    member = fields.ListField(fields.ReferenceField(Student))
 
 class Corporation(Document):
     url_number = fields.IntField()
@@ -14,29 +11,26 @@ class Corporation(Document):
     logo = fields.StringField()  # logo路径
     birthyear = fields.IntField()  # 创建年份
     creat_time = fields.DateTimeField()
-    departments = fields.ListField(fields.EmbeddedDocumentField(Department))#部门
+    departments = fields.ListField(fields.StringField())#部门
     introduction = fields.StringField(required=True, verbose_name=u'社团简介')
-    tags = fields.ListField(fields.StringField())  # 社团标签
+    #tags = fields.ListField(fields.StringField())  # 社团标签
     school = fields.StringField()#学校
     who_watches = fields.ListField(fields.ReferenceField(Student, reverse_delete_rule=PULL))#关注它的人
     
     #社团管理
     
     def creat_department(self, department_name):#创建部门
-        department = Department(name=department_name).save()
-        return self.update(push__department=department)
+        return self.update(push__departments=department_name)
     
     def add_member_to_department(self, department_name, user_url_number):
         user = Student.objects(url_number=user_url_number).get()
         from relations.models import S_C_Card
-        S_C_Card.objects(user=user, corporation=self).update(set__department=department_name)
-        return self.update(push__department__member=user)
+        return S_C_Card.objects(user=user, corporation=self).update(set__department=department_name)
     
     def delete_member_from_department(self, department_name, user_url_number):
-        user = Student.objects(url_number=user_url_number)
+        user = Student.objects(url_number=user_url_number).get()
         from relations.models import S_C_Card
-        S_C_Card.objects(user=user, corporation=self).update(set__department="")
-        return self.update(pull__department__member=user)
+        return S_C_Card.objects(user=user, corporation=self).update(set__department="")
     
     
     #降低权限
@@ -58,7 +52,7 @@ class Corporation(Document):
         S_C_Card.objects(corporation=self, user=user).update(set__is_active=False)
         
             
-    #加入社团
+    #申请加入社团
     def entercorporation(self, user):
         from relations.models import S_C_Card
         if self.get_user_admin():
@@ -151,6 +145,15 @@ class Corporation(Document):
         from topic.models import Topic
         return Topic.objects(creator__in=self.get_sccard_all(), is_active=True, is_locked=False)
     
+    
+    #查询activity
+    def get_activity_active(self):
+        from activity.models import Activity
+        return Activity.objects(creator__in=self.get_sccard_active(), is_active=True)
+    
+    def get_activity_inactive(self):
+        from activity.models import Activity
+        return Activity.objects(creator__in=self.get_sccard_active(), is_active=False)
     
     
     

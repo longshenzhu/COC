@@ -1,0 +1,16 @@
+{%extends "corporation/corporation_base.html"%}
+
+{%block leftspan6%}
+<h3>{{corporation.name}}<small>社团管理</small></h3>
+<h3>&nbsp;</h3>
+<ul class="nav nav-tabs" id="myTab">
+	{%block tab_nav%}
+	{%endblock%}
+</ul>
+{%if current_user in corporation.get_user_admin%}
+	{%block manage_content%}
+	{%endblock%}
+{%else%}
+<h2>您没有相关权限</h2>
+{%endif%}
+{%endblock%}
