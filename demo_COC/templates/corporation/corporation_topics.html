@@ -1,5 +1,9 @@
 {%extends "corporation/corporation.html"%}
 
+{%block topic_or_activity%}
+	<a class="pull-right" data-toggle="modal" data-target="#myTopicModal" href="">-发布话题</a>
+{%endblock%}
+
 {%block tab%}
 	{%if current_user in corporation.get_user_active%}
 		<li class="active">
@@ -50,7 +54,7 @@
 {%endblock%}
 
 {%block otherbody%}
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="myTopicModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 			×

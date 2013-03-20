@@ -193,6 +193,9 @@ def topic_inactive(request,url_number):
     group = Group.objects(url_number=url_number).get()
     return render_to_response('group/group_topic_inactive.html', {'group':group, 'STATIC_URL':STATIC_URL, 'current_user':request.user}, context_instance=RequestContext(request))
   
+def visit_group_structure(request,url_number):
+    group = Group.objects(url_number=url_number).get()
+    return render_to_response('group/group_structure.html', {'group':group, 'STATIC_URL':STATIC_URL, 'current_user':request.user}, context_instance=RequestContext(request))
   
   
 def demote(request,group_url_number,user_url_number):

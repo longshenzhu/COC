@@ -7,9 +7,13 @@ class CreatCorporationForm(forms.Form):
     birthyear = forms.IntegerField()
     school = forms.CharField()
     
+class CreatDepartmentForm(forms.Form):
+    department_name = forms.CharField()
+
     
-    
-    
+class MoveMemberForm(forms.Form):
+    department_name = forms.CharField()
+    user_url_number = forms.IntegerField()
     
     
 class ModifyCorporationForm(forms.Form):

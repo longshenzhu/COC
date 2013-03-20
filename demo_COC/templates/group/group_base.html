@@ -38,13 +38,14 @@
 							<img src="{{group.logo}}">
 							<div id="outer">
 								<div id="enter_button">
-									&nbsp;
+									
 									{%if current_user in group.get_user_active%}
-
+									&nbsp;
 									<button class="btn btn-block btn-danger" id="quit">
 										退出小组
 									</button>
 									{%else%}
+									&nbsp;
 									<button class="btn btn-block btn-success" id="enter">
 										加入小组
 									</button>

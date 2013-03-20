@@ -27,9 +27,7 @@
 		{%for broadcast in current_user.allbroadcast reversed%}
 		<div class="media">
 			<div class="span2">
-				<div class="span8">
-					<a class="pull-left" href="/people/{{broadcast.object.user.url_number}}"><img class="img-polaroid" src="{{broadcast.object.user.public_profile.face}}"></a>
-				</div>
+				<a class="pull-left span8" href="/people/{{broadcast.object.user.url_number}}"><img class="img-polaroid" src="{{broadcast.object.user.public_profile.face}}"></a>
 			</div>
 			<div class="broadcast right span10">
 				<div class="arrow"></div>
@@ -148,7 +146,7 @@
 			{%for corporation in current_user.get_corporation_active%}
 				{%if forloop.counter <= 4%}
 					<li class="span3">
-						<a href="/group/{{corporation.url_number}}/"><img src="{{corporation.logo}}" class="img-polaroid span12"></a>
+						<a href="/corporation/{{corporation.url_number}}/"><img src="{{corporation.logo}}" class="img-polaroid span12"></a>
 					</li>
 				{%endif%}
 			{%endfor%}
@@ -157,7 +155,7 @@
 			{%for corporation in current_user.get_corporation_active%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 					<li class="span3">
-						<a href="/group/{{corporation.url_number}}/"><img src="{{corporation.logo}}" class="img-polaroid span12"></a>
+						<a href="/corporation/{{corporation.url_number}}/"><img src="{{corporation.logo}}" class="img-polaroid span12"></a>
 					</li>
 				{%endif%}
 			{%endfor%}

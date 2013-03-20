@@ -1,4 +1,4 @@
-{%extends "group/group_manage.html"%}
+{%extends "corporation/corporation_manage.html"%}
 {%block tab_nav%}
 	<li>
 		<a href="../manage_edit/">资料编辑</a>
@@ -7,22 +7,25 @@
 		<a href="../manage_members/">成员管理</a>
 	</li>
 	<li>
+		<a href="../manage_department/">部门管理</a>
+	</li>
+	<li>
 		<a href="../manage_advance/">高级设定</a>
 	</li>
 {%endblock%}
 
 {%block manage_content%}
-<h3>-----小组管理员-----</h3>
+<h3>-----社团管理员-----</h3>
 <hr>
 <div id="admins">
-	{%if group.get_user_admin%}
+	{%if corporation.get_user_admin%}
 	<ul class="thumbnails">
-		{%for user in group.get_user_admin%}
+		{%for user in corporation.get_user_admin%}
 		<li>
 			<a class="pull-left span1" href="/people/{{user.url_number}}/"> <img class="media-object" src="{{user.public_profile.face}}"> </a>
 			<div class="media-body">
 				<h4 class="media-heading">{{user.public_profile.realname}}</h4>
-				{%if group.get_user_admin.count > 1 and current_user != user%}
+				{%if corporation.get_user_admin.count > 1 and current_user != user%}
 				<button class="btn-mini" id="demote_{{user.url_number}}">贬为平民</button>
 				{%endif%}
 			</div>
@@ -30,28 +33,28 @@
 		{%endfor%}
 	</ul>
 	{%else%}
-	<h2>小组没有管理员。。。那你是怎么进来的！！</h2>
+	<h2>社团没有管理员。。。那你是怎么进来的！！</h2>
 	{%endif%}
 </div>
 <h2>&nbsp;</h2>
-<h3>-----小组成员-----</h3>
+<h3>-----社团成员-----</h3>
 <hr>
 <div id="members">
-	{%if group.get_user_not_admin%}
+	{%if corporation.get_user_not_admin%}
 	<ul class="thumbnails">
-		{%for user in group.get_user_not_admin%}
+		{%for user in corporation.get_user_not_admin%}
 		<li>
 			<a class="pull-left span1" href="/people/{{user.url_number}}/"> <img class="media-object" src="{{user.public_profile.face}}"> </a>
 			<div class="media-body">
 				<h4 class="media-heading">{{user.public_profile.realname}}</h4>
 				<button class="btn-mini" id="promote_{{user.url_number}}">提升为管理员</button>
-				<button class="btn-mini" id="kick_out_{{user.url_number}}">踢出小组</button>
+				<button class="btn-mini" id="kick_out_{{user.url_number}}">踢出社团</button>
 			</div>
 		</li>
 		{%endfor%}
 	</ul>
 	{%else%}
-	<h2>您的小组还没有成员</h2>
+	<h2>您的社团还没有成员</h2>
 	{%endif%}
 </div>
 {%endblock%}
@@ -61,9 +64,9 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/csrf.js"></script>
 <script type="text/javascript">
 $().ready(function(){
-	{%for user in group.get_member_list%}
+	{%for user in corporation.get_member_list%}
 	$('#promote_{{user.url_number}}').live('click',function () {
-		$.post("{%url group.views.promote group.url_number user.url_number%}",
+		$.post("{%url corporation.views.promote corporation.url_number user.url_number%}",
 		function () {
 			$('#members').load(location.href+' #members>*');
 			$('#admins').load(location.href+' #admins>*');
@@ -73,7 +76,7 @@ $().ready(function(){
 	});
 	
 	$('#kick_out_{{user.url_number}}').live('click',function () {
-		$.post("{%url group.views.kick_out group.url_number user.url_number%}",
+		$.post("{%url corporation.views.kick_out corporation.url_number user.url_number%}",
 		function () {
 			$('#members').load(location.href+' #members>*');
 			$('#admins').load(location.href+' #admins>*');
@@ -82,9 +85,9 @@ $().ready(function(){
 		});
 	});
 	{%endfor%}
-	{%for user in group.get_admin_list%}
+	{%for user in corporation.get_admin_list%}
 	$('#demote_{{user.url_number}}').live('click',function () {
-		$.post("{%url group.views.demote group.url_number user.url_number%}",
+		$.post("{%url corporation.views.demote corporation.url_number user.url_number%}",
 		function () {
 			$('#admins').load(location.href+' #admins>*');
 			$('#members').load(location.href+' #members>*');

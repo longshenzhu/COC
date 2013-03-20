@@ -7,7 +7,7 @@ from django.core.context_processors import csrf
 from demo_COC.settings import STATIC_URL, MEDIA_ROOT, MEDIA_URL
 from django.http import HttpResponseRedirect
 from django.contrib.auth import *
-from forms import CreatCorporationForm,ModifyCorporationForm
+from forms import CreatCorporationForm,ModifyCorporationForm,MoveMemberForm,CreatDepartmentForm
 from models import Corporation
 from reply.models import Reply
 from reply.forms import NewReplyForm
@@ -166,6 +166,32 @@ def corporation_manage_advance(request,url_number):
     corporation = Corporation.objects(url_number=url_number).get()
     return render_to_response('corporation/corporation_manage_advance.html', {'corporation':corporation, 'STATIC_URL':STATIC_URL, 'current_user':request.user}, context_instance=RequestContext(request))
   
+def corporation_manage_department(request,url_number):
+    from accounts.models import Student
+    corporation = Corporation.objects(url_number=url_number).get()
+    if request.method == "POST":
+        if "user_url_number" in request.POST:
+            form_move = MoveMemberForm(request.POST)
+            if form_move.is_valid():
+                department_name = form_move.cleaned_data['department_name']
+                user_url_number = form_move.cleaned_data['user_url_number']
+                user = Student.objects(url_number=user_url_number).get()
+                sccard = S_C_Card.objects(user=user,corporation=corporation).get()
+                corporation.delete_member_from_department(sccard.department,user_url_number)
+                corporation.add_member_to_department(department_name,user_url_number)
+                return HttpResponseRedirect('')
+            
+        elif "creat_department" in request.POST:
+            form_creat = CreatDepartmentForm(request.POST)
+            if form_creat.is_valid():
+                department_name = form_creat.cleaned_data['department_name']
+                corporation.creat_department(department_name)
+                return HttpResponseRedirect('')
+        
+    else:
+        form_move = MoveMemberForm()
+        form_creat = CreatDepartmentForm()
+        return render_to_response('corporation/corporation_manage_department.html', {'corporation':corporation, 'STATIC_URL':STATIC_URL, 'current_user':request.user}, context_instance=RequestContext(request))
   
 def demote(request,corporation_url_number,user_url_number):
     corporation = Corporation.objects(url_number=corporation_url_number).get()
@@ -185,7 +211,7 @@ def kick_out(request,corporation_url_number,user_url_number):
     
 @login_required(login_url='/')
 def redirect_to_topics(request, url_number):
-    return HttpResponseRedirect('/corporation/' + str(url_number) + '/topics/')
+    return HttpResponseRedirect('/corporation/' + str(url_number) + '/structure/')
 
 def visit_corporation_topics(request, gurl_number):
     corporation = Corporation.objects(url_number=gurl_number).get()
@@ -223,6 +249,20 @@ def visit_corporation_activity(request, url_number):
     corporation = Corporation.objects(url_number=url_number).get()
     return render_to_response('corporation/corporation_activity.html', {'current_user':request.user, 'url_number':url_number, 'corporation':corporation, 'STATIC_URL':STATIC_URL}, context_instance=RequestContext(request))
   
+    
+def watch_corporation(request, url_number):
+    corporation = Corporation.objects(url_number=url_number).get()
+    corporation.watch_corporation(request.user)
+    return HttpResponse('success')
+
+    
+    
+def cancle_watch_corporation(request, url_number):
+    corporation = Corporation.objects(url_number=url_number).get()
+    corporation.diswatch_corporation(request.user)
+    return HttpResponse('success')
+    
+    
     
     
     

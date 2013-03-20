@@ -18,9 +18,7 @@
 		{%for broadcast in student.mybroadcast reversed%}
 		<div class="media">
 			<div class="span2">
-				<div class="span8">
-					<a class="pull-left" href="/people/{{student.url_number}}/"><img class="img-polaroid" src="{{student.public_profile.face}}"></a>
-				</div>
+				<a class="pull-left span8" href="/people/{{student.url_number}}/"><img class="img-polaroid" src="{{student.public_profile.face}}"></a>
 			</div>
 			<div class="broadcast right span10">
 				<div class="arrow"></div>

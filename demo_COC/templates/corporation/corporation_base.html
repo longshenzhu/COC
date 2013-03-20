@@ -40,13 +40,15 @@
 								<div id="enter_button">
 									{%if current_user not in corporation.get_user_active%}
 										{%if current_user in corporation.who_watches%}
+										&nbsp;
 										<button class="btn btn-block btn-danger" id="quit">
-											&nbsp;
+											
 											取消关注
 										</button>
 										{%else%}
+										&nbsp;
 										<button class="btn btn-block btn-success" id="enter">
-											&nbsp;
+											
 											关注社团
 										</button>
 										{%endif%}
@@ -113,7 +115,7 @@
 <script type="text/javascript">
 	$().ready(function() {
 		$('#quit').live('click', function() {
-			$.post("{%url corporation.views.quitcorporation corporation.url_number%}", function() {
+			$.post("{%url corporation.views.cancle_watch_corporation corporation.url_number%}", function() {
 				$('#outer').load(location.href + ' #outer>*');
 				$('#topic_outer').load(location.href + ' #topic_outer>*');
 				$('#admin_list').load(location.href + ' #admin_list>*');
@@ -126,7 +128,7 @@
 		});
 
 		$('#enter').live('click', function() {
-			$.post("{%url corporation.views.entercorporation corporation.url_number%}", function() {
+			$.post("{%url corporation.views.watch_corporation corporation.url_number%}", function() {
 				$('#outer').load(location.href + ' #outer>*');
 				$('#topic_outer').load(location.href + ' #topic_outer>*');
 				$('#admin_list').load(location.href + ' #admin_list>*');

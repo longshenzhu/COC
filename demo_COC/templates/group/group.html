@@ -5,10 +5,13 @@
 &nbsp;
 <div class="alert alert-success">
 	<div id="ask_outer" class="span4 pull-right">
+		{%block creat_topic%}
 		{%if current_user in group.get_user_active%}
+			
 			<a class="pull-right" data-toggle="modal" data-target="#myModal" href="">
 				-发布话题
 			</a>
+			
 			{%if current_user in group.get_user_not_admin%}
 				<a class="pull-right" id="ask_for_admin" href="">
 					-申请管理权
@@ -18,15 +21,22 @@
 				<a class="pull-right" href="topic_inactive/">-话题回收站</a>
 			{%endif%}
 		{%endif%}
+		{%endblock%}
 	</div>
 	简介：<br />
 	<p>{{group.introduction|linebreaksbr}}</p>
 </div>
-<div class="row-fluid">
-	<div class="span4">
-		<h4 class="pull-left">最近小组话题</h4>
-	</div>
-</div>
+<ul class="nav nav-tabs" id="myTab">
+	{%block tab%}
+	<li class="active">
+		<a href="">小组话题</a>
+	</li>
+	<li>
+		<a href="structure/">小组人员</a>
+	</li>
+	{%endblock%}
+</ul>
+{%block content%}
 {%if group.get_topic_active%}
 <table class="table table-hover">
 	<thead>
@@ -53,6 +63,7 @@
 	<p>没有话题</p>
 </div>
 {%endif%}
+{%endblock%}
 {%endblock%}
 
 {%block otherbody%}
