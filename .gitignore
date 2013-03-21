@@ -30,6 +30,14 @@ local.properties
 
 #mongodb
 *.lock
+data/
+media/
+
+#Django
+*.log
+*.pot
+*.pyc
+local_settings.py
 
 #################
 ## Visual Studio
