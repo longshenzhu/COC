@@ -67,7 +67,7 @@
 									{%for user in group.get_user_admin%}
 									{%if forloop.counter <= 4%}
 									<li class="span3">
-										<a href="/people/{{user.url_number}}/"><img src="{{user.public_profile.face}}" class="img-polaroid span12"></a>
+										<a href="/people/{{user.url_number}}/"><img src="{{user.public_profile.thumbnail}}" class="img-polaroid span12"></a>
 									</li>
 									{%endif%}
 									{%endfor%}
@@ -93,7 +93,7 @@
 									{%for user in group.get_user_not_admin%}
 									{%if forloop.counter <= 4%}
 									<li class="span3">
-										<a href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}" class="img-polaroid span12"></a>
+										<a href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.thumbnail}}" class="img-polaroid span12"></a>
 									</li>
 									{%endif%}
 									{%endfor%}

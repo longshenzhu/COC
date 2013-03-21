@@ -37,7 +37,7 @@
 			{%for corporation in current_user.get_corporation_admin%}
 				{%if forloop.counter <= 4%}
 			<li class="span3">
-				<a href="/corporation/{{corporation.url_number}}/"> <img src="{{corporation.logo}}" class="img-polaroid span12"></a>
+				<a href="/corporation/{{corporation.url_number}}/"> <img src="{{corporation.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
@@ -46,7 +46,7 @@
 			{%for corporation in current_user.get_corporation_admin%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li class="span3">
-				<a href="/corporation/{{corporation.url_number}}/"> <img src="{{corporation.logo}}" class="img-polaroid span12"></a>
+				<a href="/corporation/{{corporation.url_number}}/"> <img src="{{corporation.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
@@ -69,7 +69,7 @@
 			{%for corporation in current_user.get_corporation_not_admin%}
 				{%if forloop.counter <= 4%}
 			<li class="span3">
-				<a href="/corporation/{{corporation.url_number}}/"> <img src="{{corporation.logo}}" class="img-polaroid span12"></a>
+				<a href="/corporation/{{corporation.url_number}}/"> <img src="{{corporation.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}		
 			{%endfor%}
@@ -78,7 +78,7 @@
 			{%for corporation in current_user.get_corporation_not_admin%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li class="span3">
-				<a href="/corporation/{{corporation.url_number}}/"> <img src="{{corporation.logo}}" class="img-polaroid span12"></a>
+				<a href="/corporation/{{corporation.url_number}}/"> <img src="{{corporation.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}

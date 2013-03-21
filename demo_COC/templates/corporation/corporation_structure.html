@@ -18,17 +18,17 @@
 {%if corporation.departments%}
 	{%for department in corporation.departments%}
 		<div class="row-fluid">
-			<h4>{{department.name}}</h4>
+			<h4>{{department}}</h4>
 			<div class="row-fluid">
 				{%if department.member%}
-					<ul class="span11 offset1">
+					<ul class="thumbnails">
 						{%for user in department.member%}
-						<li class="span2 thumbnail">
-							<div class="row-fluid">
-								<a class="pull-left" href="/people/{{user.url_number}}/"> <img class="img-polaroid span10" src="{{user.public_profile.face}}"></a>
+						<li class="span4 {%cycle 'removemarginleft' '' ''%}">
+							<div class="span6">
+								<a href="/people/{{user.url_number}}/"> <img class="img-polaroid span10" src="{{user.public_profile.thumbnail}}"></a>
 							</div>
-							<div class="row-fluid">
-								<p align="middle" class="media-heading">{{user.public_profile.realname}}</p>
+							<div class="media-body">
+								<h4 class="media-heading">{{sccard.user.public_profile.realname}}</h4>
 							</div>
 						</li>
 						{%endfor%}

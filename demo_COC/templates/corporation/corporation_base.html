@@ -69,7 +69,7 @@
 								<ul class="thumbnails row-fluid">
 									{%for user in corporation.get_user_admin%}
 									<li class="span3">
-										<a href="/people/{{user.url_number}}/"><img src="{{user.public_profile.face}}" class="img-polaroid span12"></a>
+										<a href="/people/{{user.url_number}}/"><img src="{{user.public_profile.thumbnail}}" class="img-polaroid span12"></a>
 									</li>
 									{%endfor%}
 								</ul>
@@ -90,7 +90,7 @@
 								<ul class="thumbnails">
 									{%for user in corporation.get_user_not_admin%}
 									<li class="span3">
-										<a href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.face}}" class="img-polaroid span12"></a>
+										<a href="/people/{{user.url_number}}/"> <img src="{{user.public_profile.thumbnail}}" class="img-polaroid span12"></a>
 									</li>
 									{%endfor%}
 								</ul>

@@ -9,6 +9,7 @@ class Corporation(Document):
     url_number = fields.IntField()
     name = fields.StringField(required=True, verbose_name=u'社团名称')
     logo = fields.StringField()  # logo路径
+    thumbnail = fields.StringField()
     birthyear = fields.IntField()  # 创建年份
     creat_time = fields.DateTimeField()
     departments = fields.ListField(fields.StringField())#部门
@@ -21,6 +22,13 @@ class Corporation(Document):
     
     def creat_department(self, department_name):#创建部门
         return self.update(push__departments=department_name)
+    
+    def delete_department(self, department_name):#删除部门
+        for sccard in self.get_sccard_active():
+            if sccard.department == department_name:
+                sccard.update(set__department="")
+            
+        return self.update(pull__departments=department_name)
     
     def add_member_to_department(self, department_name, user_url_number):
         user = Student.objects(url_number=user_url_number).get()
