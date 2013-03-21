@@ -30,8 +30,8 @@ local.properties
 
 #mongodb
 *.lock
-data/
-media/
+/demo_COC/data/
+/demo_COC/media/
 
 #Django
 *.log
