@@ -18,12 +18,14 @@
 	{%if group.get_user_admin%}
 	<ul class="thumbnails">
 		{%for user in group.get_user_admin%}
-		<li>
-			<a class="pull-left span3" href="/people/{{user.url_number}}/"> <img class="img-polaroid" src="{{user.public_profile.face}}"></a>
+		<li class="span4 {%cycle 'removemarginleft' '' ''%}">
+			<div class="span6">
+				<a href="/people/{{user.url_number}}/"> <img class="img-polaroid span10" src="{{user.public_profile.thumbnail}}"></a>
+			</div>
 			<div class="media-body">
 				<h4 class="media-heading">{{user.public_profile.realname}}</h4>
 				{%if group.get_user_admin.count > 1 and current_user != user%}
-				<button class="btn-mini" id="demote_{{user.url_number}}">贬为平民</button>
+				<button class="btn btn-mini" id="demote_{{user.url_number}}">贬为平民</button>
 				{%endif%}
 			</div>
 		</li>
@@ -40,18 +42,20 @@
 	{%if group.get_user_not_admin%}
 	<ul class="thumbnails">
 		{%for user in group.get_user_not_admin%}
-		<li>
-			<a class="pull-left span1" href="/people/{{user.url_number}}/"> <img class="media-object" src="{{user.public_profile.face}}"></a>
+		<li class="span4 {%cycle 'removemarginleft' '' ''%}">
+			<div class="span6">
+				<a href="/people/{{user.url_number}}/"> <img class="img-polaroid span10" src="{{user.public_profile.thumbnail}}"></a>
+			</div>
 			<div class="media-body">
 				<h4 class="media-heading">{{user.public_profile.realname}}</h4>
-				<button class="btn-mini" id="promote_{{user.url_number}}">提升为管理员</button>
-				<button class="btn-mini" id="kick_out_{{user.url_number}}">踢出小组</button>
+				<button class="btn btn-mini" id="promote_{{user.url_number}}">提升为管理员</button>
+				<button class="btn btn-mini" id="kick_out_{{user.url_number}}">踢出小组</button>
 			</div>
 		</li>
 		{%endfor%}
 	</ul>
 	{%else%}
-	<h4>您的小组还没有成员</h4>
+	<h3>您的小组还没有成员</h3>
 	{%endif%}
 </div>
 {%endblock%}

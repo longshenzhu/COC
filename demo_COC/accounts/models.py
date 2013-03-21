@@ -8,6 +8,7 @@ from mongoengine import fields, EmbeddedDocument
 class Public_Profile(EmbeddedDocument):
     realname = fields.StringField()
     face = fields.StringField()
+    thumbnail = fields.StringField()
     gender = fields.StringField(max_length=2)
     school = fields.StringField()
     birthday = fields.DateTimeField()

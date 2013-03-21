@@ -7,7 +7,7 @@ from django.core.context_processors import csrf
 from demo_COC.settings import STATIC_URL, MEDIA_ROOT, MEDIA_URL
 from django.http import HttpResponseRedirect
 from django.contrib.auth import *
-from forms import CreatCorporationForm,ModifyCorporationForm,MoveMemberForm,CreatDepartmentForm
+from forms import CreatCorporationForm,ModifyCorporationForm,MoveMemberForm,CreatDepartmentForm,DeleteDepartmentForm
 from models import Corporation
 from reply.models import Reply
 from reply.forms import NewReplyForm
@@ -39,18 +39,29 @@ def creat_corporation(request):
                 img = Image.open(request.FILES['logo'])
                 if img.mode == 'RGB':
                     filename = 'logo.jpg'
+                    filename_thumbnail = 'thumbnail.jpg'
                 elif img.mode == 'P':
                     filename = 'logo.png'
+                    filename_thumbnail = 'thumbnail.png'
                 filepath = '%s/%s' % (path, filename)
+                filepath_thumbnail = '%s/%s' % (path, filename_thumbnail)
                 # 获得图像的宽度和高度
                 width, height = img.size
                 # 计算宽高
                 ratio = 1.0 * height / width
                 # 计算新的高度
-                new_height = int(260 * ratio)
-                new_size = (260, new_height)
+                new_height = int(288 * ratio)
+                new_size = (288, new_height)
                 # 缩放图像
+                if new_height >= 288:
+                    thumbnail_size = (0,0,288,288)
+                else:
+                    thumbnail_size = (0,0,new_height,new_height)
+                    
                 out = img.resize(new_size, Image.ANTIALIAS)
+                thumbnail = out.crop(thumbnail_size)
+                thumbnail.save(MEDIA_ROOT + filepath_thumbnail)
+                corporation.thumbnail = MEDIA_URL + filepath_thumbnail
                 out.save(MEDIA_ROOT + filepath)
                 corporation.logo = MEDIA_URL + filepath
                 
@@ -137,18 +148,29 @@ def corporation_manage_edit(request,url_number):
                 img = Image.open(request.FILES['logo'])
                 if img.mode == 'RGB':
                     filename = 'logo.jpg'
+                    filename_thumbnail = 'thumbnail.jpg'
                 elif img.mode == 'P':
                     filename = 'logo.png'
+                    filename_thumbnail = 'thumbnail.png'
                 filepath = '%s/%s' % (path, filename)
+                filepath_thumbnail = '%s/%s' % (path, filename_thumbnail)
                 # 获得图像的宽度和高度
                 width, height = img.size
                 # 计算宽高
                 ratio = 1.0 * height / width
                 # 计算新的高度
-                new_height = int(260 * ratio)
-                new_size = (260, new_height)
+                new_height = int(288 * ratio)
+                new_size = (288, new_height)
                 # 缩放图像
+                if new_height >= 288:
+                    thumbnail_size = (0,0,288,288)
+                else:
+                    thumbnail_size = (0,0,new_height,new_height)
+                    
                 out = img.resize(new_size, Image.ANTIALIAS)
+                thumbnail = out.crop(thumbnail_size)
+                thumbnail.save(MEDIA_ROOT + filepath_thumbnail)
+                corporation.thumbnail = MEDIA_URL + filepath_thumbnail
                 out.save(MEDIA_ROOT + filepath)
                 corporation.logo = MEDIA_URL + filepath
                 
@@ -187,10 +209,18 @@ def corporation_manage_department(request,url_number):
                 department_name = form_creat.cleaned_data['department_name']
                 corporation.creat_department(department_name)
                 return HttpResponseRedirect('')
+            
+        elif "delete_department" in request.POST:
+            form_delete = DeleteDepartmentForm(request.POST)
+            if form_delete.is_valid():
+                department_name = form_delete.cleaned_data['department_name']
+                corporation.delete_department(department_name)
+                return HttpResponseRedirect('')
         
     else:
         form_move = MoveMemberForm()
         form_creat = CreatDepartmentForm()
+        form_delete = DeleteDepartmentForm()
         return render_to_response('corporation/corporation_manage_department.html', {'corporation':corporation, 'STATIC_URL':STATIC_URL, 'current_user':request.user}, context_instance=RequestContext(request))
   
 def demote(request,corporation_url_number,user_url_number):

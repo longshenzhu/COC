@@ -37,7 +37,7 @@
 			{%for group in current_user.get_group_admin%}
 				{%if forloop.counter <= 4%}
 			<li class="span3">
-				<a href="/group/{{group.url_number}}/"> <img src="{{group.logo}}" class="img-polaroid span12"></a>
+				<a href="/group/{{group.url_number}}/"> <img src="{{group.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
@@ -46,7 +46,7 @@
 			{%for group in current_user.get_group_admin%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li class="span3">
-				<a href="/group/{{group.url_number}}/"> <img src="{{group.logo}}" class="img-polaroid span12"></a>
+				<a href="/group/{{group.url_number}}/"> <img src="{{group.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
@@ -71,7 +71,7 @@
 			{%for group in current_user.get_group_not_admin%}
 				{%if forloop.counter <= 4%}
 			<li class="span3">
-				<a href="/group/{{group.url_number}}/"> <img src="{{group.logo}}" class="img-polaroid span12"></a>
+				<a href="/group/{{group.url_number}}/"> <img src="{{group.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}		
 			{%endfor%}
@@ -80,7 +80,7 @@
 			{%for group in current_user.get_group_not_admin%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li class="span3">
-				<a href="/group/{{group.url_number}}/"> <img src="{{group.logo}}" class="img-polaroid span12"></a>
+				<a href="/group/{{group.url_number}}/"> <img src="{{group.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}

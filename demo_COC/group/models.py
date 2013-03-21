@@ -6,6 +6,7 @@ class Group(Document):
     url_number = fields.IntField()
     name = fields.StringField(required=True, verbose_name=u'小组名称')
     logo = fields.StringField()  # logo路径
+    thumbnail = fields.StringField()
     birthday = fields.DateTimeField()  # 创建日期
     introduction = fields.StringField(required=True, verbose_name=u'小组介绍')
     # tags = fields.ListField(fields.StringField())#小组标签

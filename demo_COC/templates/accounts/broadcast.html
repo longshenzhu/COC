@@ -4,7 +4,7 @@
 	<h4 style="color: black">我的广播</small></h4>
 	<div class="row-fluid">
 		<div class="span2">
-			<img src="{{current_user.public_profile.face}}" class="img-polaroid">
+			<img src="{{current_user.public_profile.thumbnail}}" class="img-polaroid">
 		</div>
 		<form method="post" class="span10 well">
 			{% csrf_token %}
@@ -27,7 +27,7 @@
 		{%for broadcast in current_user.allbroadcast reversed%}
 		<div class="media">
 			<div class="span2">
-				<a class="pull-left span8" href="/people/{{broadcast.object.user.url_number}}"><img class="img-polaroid" src="{{broadcast.object.user.public_profile.face}}"></a>
+				<a class="pull-left span8" href="/people/{{broadcast.object.user.url_number}}"><img class="img-polaroid" src="{{broadcast.object.user.public_profile.thumbnail}}"></a>
 			</div>
 			<div class="broadcast right span10">
 				<div class="arrow"></div>
@@ -80,7 +80,7 @@
 			{%for wstudent in current_user.get_watchpeople%}
 				{%if forloop.counter <= 4%}
 			<li class="span3">
-				<a href="/people/{{wstudent.url_number}}/"><img src="{{wstudent.public_profile.face}}" class="img-polaroid span12"></a>
+				<a href="/people/{{wstudent.url_number}}/"><img src="{{wstudent.public_profile.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
@@ -89,7 +89,7 @@
 			{%for wstudent in current_user.get_watchpeople%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li class="span3">
-				<a href="/people/{{wstudent.url_number}}/"><img src="{{wstudent.public_profile.face}}" class="img-polaroid span12"></a>
+				<a href="/people/{{wstudent.url_number}}/"><img src="{{wstudent.public_profile.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
@@ -113,7 +113,7 @@
 			{%for group in current_user.get_group_active%}
 				{%if forloop.counter <= 4%}
 			<li class="span3">
-				<a href="/group/{{group.url_number}}/"><img src="{{group.logo}}" class="img-polaroid span12"></a>
+				<a href="/group/{{group.url_number}}/"><img src="{{group.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
@@ -122,7 +122,7 @@
 			{%for group in current_user.get_group_active%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 			<li class="span3">
-				<a href="/group/{{group.url_number}}/"><img src="{{group.logo}}" class="img-polaroid span12"></a>
+				<a href="/group/{{group.url_number}}/"><img src="{{group.thumbnail}}" class="img-polaroid span12"></a>
 			</li>
 				{%endif%}
 			{%endfor%}
@@ -146,7 +146,7 @@
 			{%for corporation in current_user.get_corporation_active%}
 				{%if forloop.counter <= 4%}
 					<li class="span3">
-						<a href="/corporation/{{corporation.url_number}}/"><img src="{{corporation.logo}}" class="img-polaroid span12"></a>
+						<a href="/corporation/{{corporation.url_number}}/"><img src="{{corporation.thumbnail}}" class="img-polaroid span12"></a>
 					</li>
 				{%endif%}
 			{%endfor%}
@@ -155,7 +155,7 @@
 			{%for corporation in current_user.get_corporation_active%}
 				{%if forloop.counter > 4 and forloop.counter <= 8%}
 					<li class="span3">
-						<a href="/corporation/{{corporation.url_number}}/"><img src="{{corporation.logo}}" class="img-polaroid span12"></a>
+						<a href="/corporation/{{corporation.url_number}}/"><img src="{{corporation.thumbnail}}" class="img-polaroid span12"></a>
 					</li>
 				{%endif%}
 			{%endfor%}

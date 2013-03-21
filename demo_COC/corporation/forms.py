@@ -10,6 +10,9 @@ class CreatCorporationForm(forms.Form):
 class CreatDepartmentForm(forms.Form):
     department_name = forms.CharField()
 
+
+class DeleteDepartmentForm(forms.Form):
+    department_name = forms.CharField()
     
 class MoveMemberForm(forms.Form):
     department_name = forms.CharField()

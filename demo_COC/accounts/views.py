@@ -59,20 +59,34 @@ def signup_profile(request):
                 img = Image.open(request.FILES['face'])
                 if img.mode == 'RGB':
                     filename = 'face.jpg'
+                    filename_thumbnail = 'thumbnail.jpg'
                 elif img.mode == 'P':
                     filename = 'face.png'
+                    filename_thumbnail = 'thumbnail.png'
                 filepath = '%s/%s' % (path, filename)
+                filepath_thumbnail = '%s/%s' % (path, filename_thumbnail)
                 # 获得图像的宽度和高度
                 width, height = img.size
                 # 计算高宽
                 ratio = 1.0 * height / width
                 # 计算新的高度
-                new_height = int(260 * ratio)
-                new_size = (260, new_height)
+                new_height = int(288 * ratio)
+                new_size = (288, new_height)
                 # 缩放图像
+                if new_height >= 288:
+                    thumbnail_size = (0,0,288,288)
+                else:
+                    thumbnail_size = (0,0,new_height,new_height)
+                    
                 out = img.resize(new_size, Image.ANTIALIAS)
+                thumbnail = out.crop(thumbnail_size)
+                thumbnail.save(MEDIA_ROOT + filepath_thumbnail)
+                public_profile.thumbnail = MEDIA_URL + filepath_thumbnail
+                
+                
                 out.save(MEDIA_ROOT + filepath)
                 public_profile.face = MEDIA_URL + filepath
+                
                 
             public_profile.realname = realname
             public_profile.birthday = birthday

@@ -16,7 +16,7 @@
 	{%for corporation in student.get_corporation_active%}
 	<li class="span4 {%cycle 'removemarginleft' '' ''%}">
 		<div class="span6">
-		<a class="" href="/corporation/{{corporation.url_number}}/"> <img class="img-polaroid span10" src="{{corporation.logo}}"></a>
+		<a class="" href="/corporation/{{corporation.url_number}}/"> <img class="img-polaroid span10" src="{{corporation.thumbnail}}"></a>
 		</div>
 		<div class="media-body">
 			<h4 class="media-heading">{{corporation.name}}</h4>
