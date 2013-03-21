@@ -27,7 +27,7 @@
 			<div class="media-body">
 				<h4 class="media-heading">{{user.public_profile.realname}}</h4>
 				{%if corporation.get_user_admin.count > 1 and current_user != user%}
-				<button class="btn-mini" id="demote_{{user.url_number}}">贬为平民</button>
+				<button class="btn btn-mini" id="demote_{{user.url_number}}">贬为平民</button>
 				{%endif%}
 			</div>
 		</li>
@@ -49,8 +49,8 @@
 			</div>
 			<div class="media-body">
 				<h4 class="media-heading">{{user.public_profile.realname}}</h4>
-				<button class="btn-mini" id="promote_{{user.url_number}}">提升为管理员</button>
-				<button class="btn-mini" id="kick_out_{{user.url_number}}">踢出社团</button>
+				<button class="btn btn-mini" id="promote_{{user.url_number}}">提升为管理员</button>
+				<button class="btn btn-mini" id="kick_out_{{user.url_number}}">踢出社团</button>
 			</div>
 		</li>
 		{%endfor%}

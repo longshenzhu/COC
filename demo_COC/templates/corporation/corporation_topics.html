@@ -5,6 +5,9 @@
 {%endblock%}
 
 {%block tab%}
+	<li>
+		<a href="../structure/">社团结构</a>
+	</li>
 	{%if current_user in corporation.get_user_active%}
 		<li class="active">
 			<a href="../topics/">社内论坛</a>
@@ -12,9 +15,6 @@
 	{%endif%}
 	<li>
 		<a href="../activity/">社团活动</a>
-	</li>
-	<li>
-		<a href="../structure/">社团结构</a>
 	</li>
 {%endblock%}
 

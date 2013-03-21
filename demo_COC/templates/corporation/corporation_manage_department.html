@@ -83,9 +83,8 @@
 		</button>
 		<h3 id="myModalLabel">创建部门</h3>
 	</div>
-	<div class="modal-body" style="
-	margin-left: 120px;">
-		<form class="span3" method="post">
+	<div class="modal-body" style="margin-left: 120px;">
+		<form class="form-inline" method="post">
 			{% csrf_token %}
 			<input type="text" id="id_department_name" name="department_name" placeholder="请输入部门名称"/>
 			<input type="hidden" name="creat_department"/>
@@ -102,11 +101,15 @@
 		</button>
 		<h3 id="myModalLabel">删除部门</h3>
 	</div>
-	<div class="modal-body" style="
-	margin-left: 120px;">
-		<form class="span3" method="post">
+	<div class="modal-body" style="margin-left: 120px;">
+		<form method="post" class="form-inline">
 			{% csrf_token %}
-			<input type="text" id="id_department_name" name="department_name" placeholder="请输入部门名称"/>
+			<p>请选择要删除的部门</p>
+			<select name="department_name">
+				{%for department in corporation.departments%}
+					<option>{{department}}</option>
+				{%endfor%}
+			</select>
 			<input type="hidden" name="delete_department"/>
 			<button class="btn btn-primary" type="submit">
 				确定
